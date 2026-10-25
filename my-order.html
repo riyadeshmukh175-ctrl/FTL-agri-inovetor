@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Orders | AgriConnect AI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f8f4;
+            color: #173d2b;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: auto;
+            padding: 35px 25px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .back {
+            text-decoration: none;
+            color: #159447;
+            font-weight: bold;
+        }
+
+        .header h1 {
+            margin: 10px 0 5px;
+        }
+
+        .header p {
+            color: #718078;
+            margin: 0;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+        }
+
+        .order-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e8eee9;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .order-id {
+            color: #718078;
+            font-size: 14px;
+        }
+
+        .status {
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: #fff3cd;
+            color: #856404;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .crop-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #159447;
+            margin-bottom: 20px;
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .detail {
+            background: #f7faf8;
+            padding: 18px;
+            border-radius: 12px;
+        }
+
+        .detail span {
+            display: block;
+            color: #718078;
+            font-size: 13px;
+            margin-bottom: 7px;
+        }
+
+        .detail strong {
+            font-size: 16px;
+        }
+
+        .offer-box {
+            margin-top: 25px;
+            padding: 22px;
+            background: #eef9f0;
+            border: 1px solid #ccebd3;
+            border-radius: 15px;
+        }
+
+        .offer-box h3 {
+            margin-top: 0;
+            color: #159447;
+        }
+
+        .offer-price {
+            font-size: 25px;
+            font-weight: bold;
+            color: #173d2b;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        button {
+            border: none;
+            padding: 13px 25px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .accept {
+            background: #159447;
+            color: white;
+        }
+
+        .reject {
+            background: #eeeeee;
+            color: #555;
+        }
+
+        .message {
+            display: none;
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 12px;
+            background: #e7f8eb;
+            border: 1px solid #9ed9ab;
+            color: #176b35;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 70px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+        }
+
+        .empty-icon {
+            font-size: 60px;
+        }
+
+        .empty p {
+            color: #718078;
+        }
+
+        @media (max-width: 750px) {
+
+            .details {
+                grid-template-columns: 1fr;
+            }
+
+            .order-top {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="page">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div>
+                <a href="dashboard.html" class="back">
+                    ← Back to Dashboard
+                </a>
+
+                <h1>📦 My Orders</h1>
+
+                <p>
+                    View company offers and manage your crop orders.
+                </p>
+            </div>
+
+        </header>
+
+
+        <!-- ORDER -->
+        <div id="orderArea"></div>
+
+    </main>
+
+
+    <script>
+
+        const request =
+            JSON.parse(localStorage.getItem("farmerCropRequest"));
+
+        const orderArea =
+            document.getElementById("orderArea");
+
+
+        if (request) {
+
+            const total =
+                Number(request.quantity) *
+                Number(request.price);
+
+
+            orderArea.innerHTML = `
+
+                <div class="order-card">
+
+                    <div class="order-top">
+
+                        <div>
+                            <strong>Crop Selling Request</strong>
+
+                            <div class="order-id">
+                                Request ID:
+                                ${request.requestId}
+                            </div>
+                        </div>
+
+                        <div class="status">
+                            ${request.status}
+                        </div>
+
+                    </div>
+
+
+                    <div class="crop-name">
+                        🌾 ${request.crop}
+                    </div>
+
+
+                    <div class="details">
+
+                        <div class="detail">
+
+                            <span>Quantity</span>
+
+                            <strong>
+                                ${request.quantity} KG
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span>Expected Price</span>
+
+                            <strong>
+                                ₹${request.price} / KG
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span>Crop Quality</span>
+
+                            <strong>
+                                ${request.quality}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span>Harvest Date</span>
+
+                            <strong>
+                                ${request.harvestDate}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span>Pickup Location</span>
+
+                            <strong>
+                                ${request.location}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span>Expected Value</span>
+
+                            <strong>
+                                ₹${total.toLocaleString("en-IN")}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- COMPANY OFFER -->
+
+                    <div class="offer-box">
+
+                        <h3>
+                            🏭 Company Offer
+                        </h3>
+
+                        <p>
+                            Your crop request has been received by
+                            registered companies.
+                        </p>
+
+                        <div class="offer-price">
+                            ₹${Number(request.price).toLocaleString("en-IN")}
+                            / KG
+                        </div>
+
+                        <p>
+                            Current offer based on your expected price.
+                        </p>
+
+                    </div>
+
+
+                    <div class="buttons">
+
+                        <button
+                            class="accept"
+                            onclick="acceptOffer()"
+                        >
+                            ✅ Accept Offer
+                        </button>
+
+
+                        <button
+                            class="reject"
+                            onclick="rejectOffer()"
+                        >
+                            ❌ Reject Offer
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="message"
+                        class="message"
+                    ></div>
+
+                </div>
+
+            `;
+
+        } else {
+
+            orderArea.innerHTML = `
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        📦
+                    </div>
+
+                    <h2>No Orders Yet</h2>
+
+                    <p>
+                        Your crop selling requests and company offers
+                        will appear here.
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+
+        function acceptOffer() {
+
+            const request =
+                JSON.parse(
+                    localStorage.getItem("farmerCropRequest")
+                );
+
+            request.status = "Confirmed";
+
+            localStorage.setItem(
+                "farmerCropRequest",
+                JSON.stringify(request)
+            );
+
+
+            const message =
+                document.getElementById("message");
+
+            message.style.display = "block";
+
+            message.innerHTML = `
+                <strong>
+                    ✅ Order Confirmed!
+                </strong>
+                <br><br>
+                Your ${request.crop} order has been
+                confirmed successfully.
+                <br>
+                The next step is pickup and transport.
+            `;
+
+        }
+
+
+        function rejectOffer() {
+
+            const request =
+                JSON.parse(
+                    localStorage.getItem("farmerCropRequest")
+                );
+
+            request.status = "Rejected";
+
+            localStorage.setItem(
+                "farmerCropRequest",
+                JSON.stringify(request)
+            );
+
+
+            const message =
+                document.getElementById("message");
+
+            message.style.display = "block";
+
+            message.style.background = "#fff1f1";
+
+            message.style.borderColor = "#e5aaaa";
+
+            message.style.color = "#9b2c2c";
+
+            message.innerHTML = `
+                <strong>
+                    ❌ Offer Rejected
+                </strong>
+                <br><br>
+                You have rejected this company offer.
+            `;
+
+        }
+
+    </script>
+
+</body>
+
+</html>

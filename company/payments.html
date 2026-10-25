@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payments | AgriConnect AI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3f7f3;
+            padding: 30px;
+            color: #26352b;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: #216b38;
+            margin-bottom: 8px;
+        }
+
+        .back-btn {
+            background: #216b38;
+            color: white;
+            padding: 11px 18px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px #00000010;
+        }
+
+        .card p {
+            color: #68756b;
+            margin-bottom: 12px;
+        }
+
+        .amount {
+            font-size: 27px;
+            font-weight: bold;
+            color: #216b38;
+        }
+
+        .table-box {
+            background: white;
+            padding: 22px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        h2 {
+            margin-bottom: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e5eae5;
+        }
+
+        th {
+            background: #e8f3e9;
+        }
+
+        .status {
+            padding: 6px 10px;
+            border-radius: 15px;
+            font-size: 13px;
+            background: #fff0cc;
+            color: #8a5a00;
+        }
+
+        .paid {
+            background: #d9f5df;
+            color: #17652b;
+        }
+
+        .note {
+            margin-top: 18px;
+            color: #68756b;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+        }
+        
+.topbar {
+    padding: 20px 24px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px #00000008;
+}
+
+.card {
+    border: 1px solid #e0eee3;
+    border-radius: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px #00000010;
+}
+
+.table-box {
+    border: 1px solid #e0eee3;
+    border-radius: 14px;
+}
+
+tbody tr:hover {
+    background: #f7fbf7;
+}
+
+.pay-btn,
+.paid-btn {
+    padding: 9px 12px;
+    border: none;
+    border-radius: 7px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.pay-btn {
+    background: #237a43;
+    color: white;
+    cursor: pointer;
+}
+
+.pay-btn:hover {
+    background: #17552e;
+}
+
+.paid-btn {
+    background: #d9f5df;
+    color: #17652b;
+    cursor: default;
+}
+
+@media (max-width: 600px) {
+    .topbar {
+        padding: 16px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+}
+
+    </style>
+    <script type="module">
+    import { auth } from "./firebase.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            window.location.href = "login.html";
+        }
+    });
+</script>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="topbar">
+            <div>
+                <h1>Payments</h1>
+                <p>AgriConnect AI | Company Payment Management</p>
+            </div>
+
+            <a href="dashboard.html" class="back-btn">
+                Back to Dashboard
+            </a>
+        </div>
+
+        <div class="summary">
+            <div class="card">
+                <p>Total Payments</p>
+                <div class="amount" id="totalAmount">₹35,000</div>
+            </div>
+
+            <div class="card">
+                <p>Completed Payments</p>
+                <div class="amount" id="completedAmount">₹25,000</div>
+            </div>
+
+            <div class="card">
+                <p>Pending Payments</p>
+                <div class="amount" id="pendingAmount">₹10,000</div>
+            </div>
+        </div>
+
+        <div class="table-box">
+            <h2>Payment History</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Payment ID</th>
+                        <th>Farmer Name</th>
+                        <th>Crop</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>PAY1001</td>
+                        <td>Rahul Patil</td>
+                        <td>Tomato</td>
+                        <td>₹15,000</td>
+                        <td>05 Oct 2026</td>
+                        <td><span class="status paid">Paid</span></td>
+                       <td><span style="color:#17652b;">—</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>PAY1002</td>
+                        <td>Amit Sharma</td>
+                        <td>Wheat</td>
+                        <td>₹10,000</td>
+                        <td>06 Oct 2026</td>
+                        <td><span class="status paid">Paid</span></td>
+                        <td><span style="color:#17652b;">—</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>PAY1003</td>
+                        <td>Sunita Wankhede</td>
+                        <td>Soybean</td>
+                        <td>₹10,000</td>
+                        <td>06 Oct 2026</td>
+                        <td><span class="status">Pending</span></td>
+                        <td>
+    <button class="pay-btn" onclick="markPaid(this)">
+        Mark as Paid
+    </button>
+</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p class="note">
+                Demo data only. No real payment has been processed.
+            </p>
+        </div>
+
+    </div>
+    
+
+<script type="module">
+import { auth, db } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import {
+    doc,
+    getDoc,
+    setDoc,
+    updateDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+const demoPayments = [
+    {
+        id: "PAY1001",
+        farmer: "Rahul Patil",
+        crop: "Tomato",
+        amount: 15000,
+        date: "05 Oct 2026",
+        status: "Paid"
+    },
+    {
+        id: "PAY1002",
+        farmer: "Amit Sharma",
+        crop: "Wheat",
+        amount: 10000,
+        date: "06 Oct 2026",
+        status: "Paid"
+    },
+    {
+        id: "PAY1003",
+        farmer: "Sunita Wankhede",
+        crop: "Soybean",
+        amount: 10000,
+        date: "06 Oct 2026",
+        status: "Pending"
+    }
+];
+
+const formatRupees = amount =>
+    "₹" + Number(amount).toLocaleString("en-IN");
+
+async function initializePayments() {
+    for (const payment of demoPayments) {
+        const paymentRef = doc(db, "payments", payment.id);
+        const paymentSnap = await getDoc(paymentRef);
+
+        // Existing payment ko overwrite nahi karna
+        if (!paymentSnap.exists()) {
+            await setDoc(paymentRef, {
+                ...payment,
+                updatedAt: serverTimestamp()
+            });
+        }
+    }
+
+    await loadPayments();
+}
+
+async function loadPayments() {
+    let total = 0;
+    let completed = 0;
+    let pending = 0;
+
+    for (const payment of demoPayments) {
+        const paymentRef = doc(db, "payments", payment.id);
+        const paymentSnap = await getDoc(paymentRef);
+
+        if (!paymentSnap.exists()) continue;
+
+        const data = paymentSnap.data();
+        const row = [...document.querySelectorAll("tbody tr")]
+            .find(tr => tr.cells[0].textContent.trim() === payment.id);
+
+        if (!row) continue;
+
+        const amount = Number(data.amount || 0);
+        total += amount;
+
+        const status = row.querySelector(".status");
+        status.textContent = data.status || "Pending";
+        status.classList.toggle("paid", data.status === "Paid");
+
+        const actionCell = row.cells[row.cells.length - 1];
+        actionCell.innerHTML = "";
+
+        if (data.status === "Paid") {
+            const label = document.createElement("span");
+            label.className = "paid-btn";
+            label.textContent = "Paid";
+            actionCell.appendChild(label);
+            completed += amount;
+        } else {
+            const button = document.createElement("button");
+            button.className = "pay-btn";
+            button.textContent = "Mark as Paid";
+            button.addEventListener("click", () =>
+                markPaid(payment.id, button)
+            );
+            actionCell.appendChild(button);
+            pending += amount;
+        }
+    }
+
+    document.getElementById("totalAmount").textContent =
+        formatRupees(total);
+    document.getElementById("completedAmount").textContent =
+        formatRupees(completed);
+    document.getElementById("pendingAmount").textContent =
+        formatRupees(pending);
+}
+
+async function markPaid(paymentId, button) {
+    button.disabled = true;
+    button.textContent = "Saving...";
+
+    try {
+        await updateDoc(doc(db, "payments", paymentId), {
+            status: "Paid",
+            updatedAt: serverTimestamp()
+        });
+
+        await loadPayments();
+        alert("Payment status Firestore mein save ho gaya!");
+    } catch (error) {
+        console.error("Payment update error:", error);
+        alert("Save nahi hua. Firebase Console ke Firestore Rules check karein.");
+        button.disabled = false;
+        button.textContent = "Mark as Paid";
+    }
+}
+
+onAuthStateChanged(auth, async user => {
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+        await initializePayments();
+    } catch (error) {
+        console.error("Firestore error:", error);
+        alert("Payments load nahi hue. Firestore Rules aur database access check karein.");
+    }
+});
+</script>
+</body>
+</html>
+
+

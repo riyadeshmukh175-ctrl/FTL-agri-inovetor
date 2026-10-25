@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crop Quotes | AgriConnect AI</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f8f1;
+      color: #173d2b;
+    }
+
+    header {
+      background: #174d32;
+      color: white;
+      padding: 22px 6%;
+    }
+
+    nav {
+      background: white;
+      padding: 16px 6%;
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 8px #0001;
+    }
+
+    nav a {
+      color: #174d32;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 18px;
+    }
+
+    .intro {
+      margin-bottom: 24px;
+    }
+
+    .intro p {
+      margin-top: 10px;
+      color: #587064;
+    }
+
+    .quote-card {
+      background: white;
+      padding: 25px;
+      margin-bottom: 22px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px #0001;
+    }
+
+    .quote-card h3 {
+      margin-bottom: 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccd8ce;
+      border-radius: 7px;
+      font-size: 15px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    button {
+      background: #1c7045;
+      color: white;
+      padding: 13px 22px;
+      border: none;
+      border-radius: 7px;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 18px;
+    }
+
+    button:hover {
+      background: #125333;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    footer {
+      background: #174d32;
+      color: white;
+      text-align: center;
+      padding: 22px;
+      margin-top: 35px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🌿 AgriConnect AI</h1>
+    <p>Crop Quotation Management</p>
+  </header>
+
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="monitoring.html">Monitoring</a>
+    <a href="quote.html">Quotes</a>
+    <a href="login.html">Logout</a>
+  </nav>
+
+  <main class="container">
+
+    <div class="intro">
+      <h2>💰 Request for Quote</h2>
+      <p>Enter your offer for agricultural produce.</p>
+    </div>
+
+    <section class="quote-card">
+      <h3>Submit Your Price Offer</h3>
+
+      <form id="quoteForm">
+        <div class="form-grid">
+
+          <div>
+            <label for="cropName">Crop Name</label>
+            <select id="cropName" required>
+              <option value="">Select Crop</option>
+              <option>Tomato</option>
+              <option>Wheat</option>
+              <option>Soybean</option>
+              <option>Mango</option>
+              <option>Potato</option>
+              <option>Onion</option>
+              <option>Maize</option>
+              <option>Chilli</option>
+              <option>Carrot</option>
+              <option>Capsicum</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="quantity">Quantity (kg)</label>
+            <input type="number" id="quantity"
+              min="1" placeholder="Enter quantity" required>
+          </div>
+
+          <div>
+            <label for="price">Offer Price (₹ per kg)</label>
+            <input type="number" id="price"
+              min="0.01" step="0.01"
+              placeholder="Enter price" required>
+          </div>
+
+          <div>
+            <label for="delivery">Delivery Option</label>
+            <select id="delivery" required>
+              <option value="">Select delivery</option>
+              <option>Company Pickup</option>
+              <option>Farmer Delivery</option>
+              <option>Transport Required</option>
+            </select>
+          </div>
+
+          <div class="full">
+            <label for="notes">Additional Notes</label>
+            <textarea id="notes"
+              placeholder="Enter quality requirements or other details"></textarea>
+          </div>
+
+        </div>
+
+        <button type="submit">Submit Quote</button>
+        <p class="message" id="message" role="status"></p>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 AgriConnect AI | From Seed to Sale 🌾</p>
+  </footer>
+
+  
+<script type="module">
+  import { auth, db } from "./firebase.js";
+
+  import {
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+  import {
+    collection,
+    addDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+  const form = document.getElementById("quoteForm");
+  const message = document.getElementById("message");
+  let currentUser = null;
+
+  onAuthStateChanged(auth, (user) => {
+    currentUser = user;
+  });
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!currentUser) {
+      message.textContent = "Please login to your company account first.";
+      return;
+    }
+
+    const cropName = document.getElementById("cropName").value;
+    const quantityKg = Number(document.getElementById("quantity").value);
+    const offerPricePerKg = Number(document.getElementById("price").value);
+    const deliveryOption = document.getElementById("delivery").value;
+    const notes = document.getElementById("notes").value.trim();
+
+    if (!cropName || quantityKg <= 0 || offerPricePerKg <= 0 || !deliveryOption) {
+      message.textContent = "Please enter valid quote details.";
+      return;
+    }
+
+    try {
+      message.textContent = "Saving quote...";
+
+      const quoteData = {
+        cropName,
+        quantityKg,
+        offerPricePerKg,
+        deliveryOption,
+        notes,
+        companyUid: currentUser.uid,
+        companyEmail: currentUser.email || "",
+        status: "Pending",
+        createdAt: serverTimestamp()
+      };
+
+      const docRef = await addDoc(
+        collection(db, "quotes"),
+        quoteData
+      );
+
+      message.textContent = "Quote saved successfully! ID: " + docRef.id;
+      form.reset();
+
+    } catch (error) {
+      console.error("Quote save error:", error);
+      message.textContent = "Could not save quote: " + error.message;
+    }
+  });
+</script>
+
+</body>
+</html>

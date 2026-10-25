@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard | AgriConnect AI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f8f3;
+            color: #173d2b;
+        }
+
+        header {
+            background: #126c3a;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        .welcome-card {
+            background: white;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 4px 16px #00000010;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 25px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            border: 1px solid #dce9dd;
+        }
+
+        button {
+            background: white;
+            color: #126c3a;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        a {
+            color: #126c3a;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2>🌿 AgriConnect AI</h2>
+        <button id="logoutButton">Logout</button>
+    </header>
+
+    <main>
+        <section class="welcome-card">
+            <h1>Welcome, Customer!</h1>
+            <p>You are successfully logged in to AgriConnect AI.</p>
+            <p id="customerEmail">Loading your account...</p>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <h3>🛒 Marketplace</h3>
+                <p>Explore agricultural products and crops.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>🌾 Browse Crops</h3>
+                <p>Discover crops available from farmers.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>📦 My Orders</h3>
+                <p>Your orders section will be available here.</p>
+            </div>
+        </section>
+
+        <p><a href="../index.html">Back to Home</a></p>
+    </main>
+
+    <script type="module">
+        import { auth } from "../company/firebase.js";
+
+        import {
+            onAuthStateChanged,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+        const emailElement = document.getElementById("customerEmail");
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.replace("../login.html");
+                return;
+            }
+
+            emailElement.textContent = "Email: " + user.email;
+        });
+
+        document.getElementById("logoutButton").addEventListener("click", async () => {
+            try {
+                await signOut(auth);
+                window.location.replace("../login.html");
+            } catch (error) {
+                console.error("Logout failed:", error);
+                alert("Unable to log out. Please try again.");
+            }
+        });
+    </script>
+</body>
+</html>

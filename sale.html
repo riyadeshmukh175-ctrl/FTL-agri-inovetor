@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sale | AgriConnect AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        <div class="logo-icon">🌿</div>
+        <div>
+            <h2>AgriConnect <span>AI</span></h2>
+            <small>From Seed to Sale</small>
+        </div>
+    </div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="index.html#process">How It Works</a>
+    </nav>
+</header>
+
+<section class="process">
+    <div class="section-title">
+        <h2>💰 Crop Sale & Payment</h2>
+        <p>Sell agricultural produce and manage delivery and payments</p>
+    </div>
+
+    <div class="feature-grid">
+        <div class="feature">
+            <span>🌾</span>
+            <div>
+                <h3>List Your Crop</h3>
+                <p>Add crop details, quantity and expected price for buyers.</p>
+                
+<form id="cropSaleForm">
+    <label for="cropName">Crop Name</label>
+    <select id="cropName" required>
+        <option value="">Select Crop</option>
+        <option value="Wheat">Wheat</option>
+        <option value="Rice">Rice</option>
+        <option value="Soybean">Soybean</option>
+        <option value="Cotton">Cotton</option>
+        <option value="Tomato">Tomato</option>
+        <option value="Onion">Onion</option>
+    </select>
+
+    <label for="quantity">Quantity (kg)</label>
+    <input type="number" id="quantity" min="1"
+           placeholder="Enter quantity in kg" required>
+
+    <label for="price">Expected Price (₹ per kg)</label>
+    <input type="number" id="price" min="1" step="0.01"
+           placeholder="Enter price per kg" required>
+
+    <button type="submit" class="primary-btn">List Crop</button>
+</form>
+
+<p id="cropSaleMessage"></p>
+            </div>
+        </div>
+
+        
+<div class="feature" onclick="window.location.href='company/farmer-requests.html'" style="cursor:pointer;">
+            <span>🤝</span>
+            <div>
+                <h3>Buyer Offers</h3>
+                <p>Review offers from companies and select a suitable buyer.</p>
+            </div>
+        </div>
+
+        
+<div class="feature" onclick="window.location.href='company/transport.html'" style="cursor:pointer;">
+            <span>🚚</span>
+            <div>
+                <h3>Delivery Tracking</h3>
+                <p>Track the transportation of crops from farm to company.</p>
+            </div>
+        </div>
+
+        
+<div class="feature" onclick="window.location.href='company/payments.html'" style="cursor:pointer;">
+            <span>💳</span>
+            <div>
+                <h3>Payment Management</h3>
+                <p>Record payment status and check transaction details.</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align:center; margin-top:40px;">
+        <a href="index.html#process" class="primary-btn">
+            ← Back to How It Works
+        </a>
+    </div>
+</section>
+
+
+
+
+<script type="module">
+import { auth, db } from "./company/firebase.js";
+
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+import {
+  collection,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+const form = document.getElementById("cropSaleForm");
+const message = document.getElementById("cropSaleMessage");
+const button = form.querySelector('button[type="submit"]');
+
+let currentUser = null;
+
+onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+
+  if (!user) {
+    message.textContent = "Please login as a farmer before listing your crop.";
+  } else {
+    message.textContent = "You are logged in. You can list your crop.";
+  }
+});
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  if (!currentUser) {
+    message.textContent = "Please login first, then return to this page.";
+    return;
+  }
+
+  const crop = document.getElementById("cropName").value;
+  const quantity = Number(document.getElementById("quantity").value);
+  const price = Number(document.getElementById("price").value);
+
+  if (!crop || quantity <= 0 || price <= 0) {
+    message.textContent = "Please enter valid crop details.";
+    return;
+  }
+
+  button.disabled = true;
+  message.textContent = "Saving crop details...";
+
+  try {
+    await addDoc(collection(db, "cropSales"), {
+      cropName: crop,
+      quantityKg: quantity,
+      pricePerKg: price,
+      totalAmount: Number((quantity * price).toFixed(2)),
+      farmerUid: currentUser.uid,
+      createdAt: serverTimestamp()
+    });
+
+    message.textContent = "Crop saved successfully in Firebase!";
+    form.reset();
+  } catch (error) {
+    console.error("Firestore error:", error);
+    message.textContent = "Crop save failed: " + error.code;
+  } finally {
+    button.disabled = false;
+  }
+});
+</script>
+</body>
+</html>

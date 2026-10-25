@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Crops | AgriConnect AI</title>
+    <link rel="stylesheet" href="farmer.css">
+</head>
+
+<body>
+
+<div class="crop-page">
+
+    <!-- HEADER -->
+    <header class="crop-header">
+
+        <div>
+            <a href="dashboard.html" class="back-link">← Dashboard</a>
+
+            <h1>🌱 My Crops</h1>
+
+            <p>
+                Monitor your crops and manage their complete growth cycle.
+            </p>
+        </div>
+
+        <button class="add-crop-btn" onclick="openCropForm()">
+            + Add New Crop
+        </button>
+
+    </header>
+
+
+    <!-- SUMMARY -->
+    <section class="crop-summary">
+
+        <div class="crop-summary-card">
+            <span>🌱</span>
+            <div>
+                <small>Active Crops</small>
+                <strong>15</strong>
+            </div>
+        </div>
+
+        <div class="crop-summary-card">
+            <span>🌾</span>
+            <div>
+                <small>Growing Area</small>
+                <strong>7 Acres</strong>
+            </div>
+        </div>
+
+        <div class="crop-summary-card">
+            <span>💧</span>
+            <div>
+                <small>Today's Irrigation</small>
+                <strong>2 Fields</strong>
+            </div>
+        </div>
+
+        <div class="crop-summary-card">
+            <span>📅</span>
+            <div>
+                <small>Next Harvest</small>
+                <strong>12 Days</strong>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- CROP LIST -->
+    <section class="crop-section">
+
+        <div class="section-top">
+
+            <div>
+                <h2>Active Crops</h2>
+                <p>Your currently growing crops</p>
+            </div>
+
+            <select id="cropFilter" onchange="filterCrops()">
+                <option value="all">All Crops</option>
+                <option value="healthy">Healthy</option>
+                <option value="attention">Needs Attention</option>
+            </select>
+
+        </div>
+
+
+        <div class="crop-grid">
+
+
+            <!-- TOMATO -->
+            <div class="crop-card" data-status="healthy">
+
+                <div class="crop-image tomato">
+                    🍅
+                </div>
+
+                <div class="crop-card-content">
+
+                    <div class="crop-title">
+                        <div>
+                            <h3>Tomato</h3>
+                            <small>Field A • 2 Acres</small>
+                        </div>
+
+                        <span class="status healthy-status">
+                            Healthy
+                        </span>
+                    </div>
+
+
+                    <div class="crop-progress">
+
+                        <div class="progress-info">
+                            <span>Growth Progress</span>
+                            <strong>78%</strong>
+                        </div>
+
+                        <div class="progress-bar">
+                            <div style="width: 78%;"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="crop-details">
+
+                        <div>
+                            <small>Sowing Date</small>
+                            <strong>10 Aug 2026</strong>
+                        </div>
+
+                        <div>
+                            <small>Expected Harvest</small>
+                            <strong>10 Oct 2026</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="crop-actions">
+
+                        <button onclick="viewCrop('Tomato')">
+                            View Details
+                        </button>
+
+                        <button class="sell-btn"
+                                onclick="sellCrop('Tomato')">
+                            💰 Sell Crop
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- WHEAT -->
+            <div class="crop-card" data-status="healthy">
+
+                <div class="crop-image wheat">
+                    🌾
+                </div>
+
+                <div class="crop-card-content">
+
+                    <div class="crop-title">
+                        <div>
+                            <h3>Wheat</h3>
+                            <small>Field B • 3 Acres</small>
+                        </div>
+
+                        <span class="status healthy-status">
+                            Healthy
+                        </span>
+                    </div>
+
+
+                    <div class="crop-progress">
+
+                        <div class="progress-info">
+                            <span>Growth Progress</span>
+                            <strong>52%</strong>
+                        </div>
+
+                        <div class="progress-bar">
+                            <div style="width: 52%;"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="crop-details">
+
+                        <div>
+                            <small>Sowing Date</small>
+                            <strong>25 Aug 2026</strong>
+                        </div>
+
+                        <div>
+                            <small>Expected Harvest</small>
+                            <strong>20 Nov 2026</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="crop-actions">
+
+                        <button onclick="viewCrop('Wheat')">
+                            View Details
+                        </button>
+
+                        <button class="sell-btn"
+                                onclick="sellCrop('Wheat')">
+                            💰 Sell Crop
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SOYBEAN -->
+            <div class="crop-card" data-status="attention">
+
+                <div class="crop-image soybean">
+                    🫘
+                </div>
+
+                <div class="crop-card-content">
+
+                    <div class="crop-title">
+                        <div>
+                            <h3>Soybean</h3>
+                            <small>Field C • 2 Acres</small>
+                        </div>
+
+                        <span class="status attention-status">
+                            Check Required
+                        </span>
+                    </div>
+
+
+                    <div class="crop-progress">
+
+                        <div class="progress-info">
+                            <span>Growth Progress</span>
+                            <strong>61%</strong>
+                        </div>
+
+                        <div class="progress-bar">
+                            <div style="width: 61%;"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="crop-details">
+
+                        <div>
+                            <small>Sowing Date</small>
+                            <strong>05 Aug 2026</strong>
+                        </div>
+
+                        <div>
+                            <small>Expected Harvest</small>
+                            <strong>25 Oct 2026</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="crop-warning">
+                        ⚠️ AI recommends checking crop health.
+                    </div>
+
+
+                    <div class="crop-actions">
+
+                        <button onclick="viewCrop('Soybean')">
+                            View Details
+                        </button>
+
+                        <button class="ai-btn"
+                                onclick="scanCrop()">
+                            🤖 Scan Crop
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+<!-- ONION -->
+<div class="crop-card" data-status="healthy">
+    <div class="crop-image onion">🧅</div>
+
+    <div class="crop-card-content">
+        <div class="crop-title">
+            <div>
+                <h3>Onion</h3>
+                <small>Field D • 1.5 Acres</small>
+            </div>
+            <span class="status healthy-status">Healthy</span>
+        </div>
+
+        <div class="crop-progress">
+            <div class="progress-info">
+                <span>Growth Progress</span>
+                <strong>72%</strong>
+            </div>
+            <div class="progress-bar">
+                <div style="width: 72%;"></div>
+            </div>
+        </div>
+
+        <div class="crop-details">
+            <div>
+                <small>Sowing Date</small>
+                <strong>15 Aug 2026</strong>
+            </div>
+            <div>
+                <small>Expected Harvest</small>
+                <strong>15 Nov 2026</strong>
+            </div>
+        </div>
+
+        <div class="crop-actions">
+            <button onclick="viewCrop('Onion')">View Details</button>
+            <button class="sell-btn" onclick="sellCrop('Onion')">
+                💰 Sell Crop
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- MAIZE -->
+<div class="crop-card" data-status="healthy">
+    <div class="crop-image maize">🌽</div>
+
+    <div class="crop-card-content">
+        <div class="crop-title">
+            <div>
+                <h3>Maize</h3>
+                <small>Field E • 2.5 Acres</small>
+            </div>
+            <span class="status healthy-status">Healthy</span>
+        </div>
+
+        <div class="crop-progress">
+            <div class="progress-info">
+                <span>Growth Progress</span>
+                <strong>65%</strong>
+            </div>
+            <div class="progress-bar">
+                <div style="width: 65%;"></div>
+            </div>
+        </div>
+
+        <div class="crop-details">
+            <div>
+                <small>Sowing Date</small>
+                <strong>20 Aug 2026</strong>
+            </div>
+            <div>
+                <small>Expected Harvest</small>
+                <strong>20 Nov 2026</strong>
+            </div>
+        </div>
+
+        <div class="crop-actions">
+            <button onclick="viewCrop('Maize')">View Details</button>
+            <button class="sell-btn" onclick="sellCrop('Maize')">
+                💰 Sell Crop
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- POTATO -->
+<div class="crop-card" data-status="attention">
+    <div class="crop-image potato">🥔</div>
+
+    <div class="crop-card-content">
+        <div class="crop-title">
+            <div>
+                <h3>Potato</h3>
+                <small>Field F • 1.5 Acres</small>
+            </div>
+            <span class="status attention-status">Check Required</span>
+        </div>
+
+        <div class="crop-progress">
+            <div class="progress-info">
+                <span>Growth Progress</span>
+                <strong>58%</strong>
+            </div>
+            <div class="progress-bar">
+                <div style="width: 58%;"></div>
+            </div>
+        </div>
+
+        <div class="crop-details">
+            <div>
+                <small>Sowing Date</small>
+                <strong>18 Aug 2026</strong>
+            </div>
+            <div>
+                <small>Expected Harvest</small>
+                <strong>18 Nov 2026</strong>
+            </div>
+        </div>
+
+        <div class="crop-actions">
+            <button onclick="viewCrop('Potato')">View Details</button>
+            <button class="sell-btn" onclick="sellCrop('Potato')">
+                💰 Sell Crop
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- CHILLI -->
+<div class="crop-card" data-status="healthy">
+    <div class="crop-image chilli">🌶️</div>
+
+    <div class="crop-card-content">
+        <div class="crop-title">
+            <div>
+                <h3>Chilli</h3>
+                <small>Field G • 1 Acre</small>
+            </div>
+            <span class="status healthy-status">Healthy</span>
+        </div>
+
+        <div class="crop-progress">
+            <div class="progress-info">
+                <span>Growth Progress</span>
+                <strong>70%</strong>
+            </div>
+            <div class="progress-bar">
+                <div style="width: 70%;"></div>
+            </div>
+        </div>
+
+        <div class="crop-details">
+            <div>
+                <small>Sowing Date</small>
+                <strong>12 Aug 2026</strong>
+            </div>
+            <div>
+                <small>Expected Harvest</small>
+                <strong>12 Nov 2026</strong>
+            </div>
+        </div>
+
+        <div class="crop-actions">
+            <button onclick="viewCrop('Chilli')">View Details</button>
+            <button class="sell-btn" onclick="sellCrop('Chilli')">
+                💰 Sell Crop
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- RICE -->
+<div class="crop-card" data-status="healthy">
+    <div class="crop-image rice">🍚</div>
+
+    <div class="crop-card-content">
+        <div class="crop-title">
+            <div>
+                <h3>Rice</h3>
+                <small>Field H • 3 Acres</small>
+            </div>
+            <span class="status healthy-status">Healthy</span>
+        </div>
+
+        <div class="crop-progress">
+            <div class="progress-info">
+                <span>Growth Progress</span>
+                <strong>80%</strong>
+            </div>
+            <div class="progress-bar">
+                <div style="width: 80%;"></div>
+            </div>
+        </div>
+
+        <div class="crop-details">
+            <div>
+                <small>Sowing Date</small>
+                <strong>01 Aug 2026</strong>
+            </div>
+            <div>
+                <small>Expected Harvest</small>
+                <strong>01 Nov 2026</strong>
+            </div>
+        </div>
+
+        <div class="crop-actions">
+            <button onclick="viewCrop('Rice')">View Details</button>
+            <button class="sell-btn" onclick="sellCrop('Rice')">
+                💰 Sell Crop
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- COTTON -->
+<div class="crop-card" data-status="healthy">
+    <div class="crop-image cotton">🌿</div>
+
+    <div class="crop-card-content">
+        <div class="crop-title">
+            <div>
+                <h3>Cotton</h3>
+                <small>Field I • 2.5 Acres</small>
+            </div>
+            <span class="status healthy-status">Healthy</span>
+        </div>
+
+        <div class="crop-progress">
+            <div class="progress-info">
+                <span>Growth Progress</span>
+                <strong>55%</strong>
+            </div>
+            <div class="progress-bar">
+                <div style="width: 55%;"></div>
+            </div>
+        </div>
+
+        <div class="crop-details">
+            <div>
+                <small>Sowing Date</small>
+                <strong>05 Aug 2026</strong>
+            </div>
+            <div>
+                <small>Expected Harvest</small>
+                <strong>05 Dec 2026</strong>
+            </div>
+        </div>
+
+        <div class="crop-actions">
+            <button onclick="viewCrop('Cotton')">View Details</button>
+            <button class="sell-btn" onclick="sellCrop('Cotton')">
+                💰 Sell Crop
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- GROUNDNUT -->
+<div class="crop-card" data-status="healthy">
+    <div class="crop-image groundnut">🥜</div>
+
+    <div class="crop-card-content">
+        <div class="crop-title">
+            <div>
+                <h3>Groundnut</h3>
+                <small>Field J • 2 Acres</small>
+            </div>
+            <span class="status healthy-status">Healthy</span>
+        </div>
+
+        <div class="crop-progress">
+            <div class="progress-info">
+                <span>Growth Progress</span>
+                <strong>63%</strong>
+            </div>
+            <div class="progress-bar">
+                <div style="width: 63%;"></div>
+            </div>
+        </div>
+
+        <div class="crop-details">
+            <div>
+                <small>Sowing Date</small>
+                <strong>10 Aug 2026</strong>
+            </div>
+            <div>
+                <small>Expected Harvest</small>
+                <strong>10 Nov 2026</strong>
+            </div>
+        </div>
+
+        <div class="crop-actions">
+            <button onclick="viewCrop('Groundnut')">View Details</button>
+            <button class="sell-btn" onclick="sellCrop('Groundnut')">
+                💰 Sell Crop
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- CARROT -->
+<div class="crop-card" data-status="healthy">
+    <div class="crop-image carrot">🥕</div>
+
+    <div class="crop-card-content">
+        <div class="crop-title">
+            <div>
+                <h3>Carrot</h3>
+                <small>Field K • 1 Acre</small>
+            </div>
+            <span class="status healthy-status">Healthy</span>
+        </div>
+
+        <div class="crop-progress">
+            <div class="progress-info">
+                <span>Growth Progress</span>
+                <strong>67%</strong>
+            </div>
+            <div class="progress-bar">
+                <div style="width: 67%;"></div>
+            </div>
+        </div>
+
+        <div class="crop-details">
+            <div>
+                <small>Sowing Date</small>
+                <strong>22 Aug 2026</strong>
+            </div>
+            <div>
+                <small>Expected Harvest</small>
+                <strong>22 Nov 2026</strong>
+            </div>
+        </div>
+
+        <div class="crop-actions">
+            <button onclick="viewCrop('Carrot')">View Details</button>
+            <button class="sell-btn" onclick="sellCrop('Carrot')">
+                💰 Sell Crop
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- CABBAGE -->
+<div class="crop-card" data-status="attention">
+    <div class="crop-image cabbage">🥬</div>
+
+    <div class="crop-card-content">
+        <div class="crop-title">
+            <div>
+                <h3>Cabbage</h3>
+                <small>Field L • 1.5 Acres</small>
+            </div>
+            <span class="status attention-status">Check Required</span>
+        </div>
+
+        <div class="crop-progress">
+            <div class="progress-info">
+                <span>Growth Progress</span>
+                <strong>48%</strong>
+            </div>
+            <div class="progress-bar">
+                <div style="width: 48%;"></div>
+            </div>
+        </div>
+
+        <div class="crop-details">
+            <div>
+                <small>Sowing Date</small>
+                <strong>28 Aug 2026</strong>
+            </div>
+            <div>
+                <small>Expected Harvest</small>
+                <strong>28 Nov 2026</strong>
+            </div>
+        </div>
+
+        <div class="crop-actions">
+            <button onclick="viewCrop('Cabbage')">View Details</button>
+            <button class="sell-btn" onclick="sellCrop('Cabbage')">
+                💰 Sell Crop
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- BRINJAL -->
+<div class="crop-card" data-status="healthy">
+    <div class="crop-image brinjal">🍆</div>
+
+    <div class="crop-card-content">
+        <div class="crop-title">
+            <div>
+                <h3>Brinjal</h3>
+                <small>Field M • 1 Acre</small>
+            </div>
+            <span class="status healthy-status">Healthy</span>
+        </div>
+
+        <div class="crop-progress">
+            <div class="progress-info">
+                <span>Growth Progress</span>
+                <strong>74%</strong>
+            </div>
+            <div class="progress-bar">
+                <div style="width: 74%;"></div>
+            </div>
+        </div>
+
+        <div class="crop-details">
+            <div>
+                <small>Sowing Date</small>
+                <strong>08 Aug 2026</strong>
+            </div>
+            <div>
+                <small>Expected Harvest</small>
+                <strong>08 Nov 2026</strong>
+            </div>
+        </div>
+
+        <div class="crop-actions">
+            <button onclick="viewCrop('Brinjal')">View Details</button>
+            <button class="sell-btn" onclick="sellCrop('Brinjal')">
+                💰 Sell Crop
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- CUCUMBER -->
+<div class="crop-card" data-status="healthy">
+    <div class="crop-image cucumber">🥒</div>
+
+    <div class="crop-card-content">
+        <div class="crop-title">
+            <div>
+                <h3>Cucumber</h3>
+                <small>Field N • 1 Acre</small>
+            </div>
+            <span class="status healthy-status">Healthy</span>
+        </div>
+
+        <div class="crop-progress">
+            <div class="progress-info">
+                <span>Growth Progress</span>
+                <strong>69%</strong>
+            </div>
+            <div class="progress-bar">
+                <div style="width: 69%;"></div>
+            </div>
+        </div>
+
+        <div class="crop-details">
+            <div>
+                <small>Sowing Date</small>
+                <strong>14 Aug 2026</strong>
+            </div>
+            <div>
+                <small>Expected Harvest</small>
+                <strong>14 Nov 2026</strong>
+            </div>
+        </div>
+
+        <div class="crop-actions">
+            <button onclick="viewCrop('Cucumber')">View Details</button>
+            <button class="sell-btn" onclick="sellCrop('Cucumber')">
+                💰 Sell Crop
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- GREEN PEAS -->
+<div class="crop-card" data-status="healthy">
+    <div class="crop-image peas">🫛</div>
+
+    <div class="crop-card-content">
+        <div class="crop-title">
+            <div>
+                <h3>Green Peas</h3>
+                <small>Field O • 1.5 Acres</small>
+            </div>
+            <span class="status healthy-status">Healthy</span>
+        </div>
+
+        <div class="crop-progress">
+            <div class="progress-info">
+                <span>Growth Progress</span>
+                <strong>45%</strong>
+            </div>
+            <div class="progress-bar">
+                <div style="width: 45%;"></div>
+            </div>
+        </div>
+
+        <div class="crop-details">
+            <div>
+                <small>Sowing Date</small>
+                <strong>01 Sep 2026</strong>
+            </div>
+            <div>
+                <small>Expected Harvest</small>
+                <strong>01 Dec 2026</strong>
+            </div>
+        </div>
+
+        <div class="crop-actions">
+            <button onclick="viewCrop('Green Peas')">
+                View Details
+            </button>
+
+            <button class="sell-btn"
+                    onclick="sellCrop('Green Peas')">
+                💰 Sell Crop
+            </button>
+        </div>
+    </div>
+</div>
+        </div>
+
+    </section>
+
+
+    <!-- AI ADVICE -->
+    <section class="ai-crop-advice">
+
+        <div class="ai-advice-icon">
+            🤖
+        </div>
+
+        <div>
+            <span>AI FARMING ADVISORY</span>
+
+            <h2>
+                Today's Recommendation
+            </h2>
+
+            <p>
+                Tomato crop is progressing well. Based on the current
+                growth stage, monitor soil moisture and avoid excessive
+                irrigation before rainfall.
+            </p>
+        </div>
+
+        <button onclick="scanCrop()">
+            Check Crop with AI →
+        </button>
+
+    </section>
+
+
+    <!-- ADD CROP MODAL -->
+    <div id="cropModal" class="crop-modal">
+
+        <div class="modal-content">
+
+            <button class="close-modal"
+                    onclick="closeCropForm()">
+                ×
+            </button>
+
+            <h2>🌱 Add New Crop</h2>
+
+            <p>Add your crop information below.</p>
+
+
+            <form id="cropForm">
+
+                <label>Crop Name</label>
+
+                <select id="cropName" required>
+    <option value="">Select Crop</option>
+    <option>Tomato</option>
+    <option>Wheat</option>
+    <option>Soybean</option>
+    <option>Onion</option>
+    <option>Maize</option>
+    <option>Potato</option>
+    <option>Chilli</option>
+    <option>Rice</option>
+    <option>Cotton</option>
+    <option>Groundnut</option>
+    <option>Carrot</option>
+    <option>Cabbage</option>
+    <option>Brinjal</option>
+    <option>Cucumber</option>
+    <option>Green Peas</option>
+</select>
+
+<label>Field Name</label>
+<input
+    type="text"
+    id="fieldName"
+    placeholder="Example: Field A"
+    required
+>
+
+<label>Farm Area (Acres)</label>
+<input
+    type="number"
+    id="areaAcres"
+    min="0.1"
+    step="0.1"
+    placeholder="Enter area"
+    required
+>
+
+<label>Sowing Date</label>
+<input
+    type="date"
+    id="sowingDate"
+    required
+>
+
+
+
+                <button type="submit"
+                        class="save-crop-btn">
+                    Save Crop
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script type="module">
+import { auth, db } from "./company/firebase.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+import {
+    addDoc,
+    collection,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+let currentUser = null;
+
+onAuthStateChanged(auth, function(user) {
+    currentUser = user;
+});
+
+window.openCropForm = function() {
+    document.getElementById("cropModal").style.display = "flex";
+};
+
+window.closeCropForm = function() {
+    document.getElementById("cropModal").style.display = "none";
+};
+
+window.viewCrop = function(cropName) {
+    alert(cropName + " details page will open here.");
+};
+
+window.sellCrop = function(cropName) {
+    window.location.href =
+        "sell-crops.html?crop=" + encodeURIComponent(cropName);
+};
+
+window.scanCrop = function() {
+    alert("AI Crop Doctor will open here.");
+};
+
+window.filterCrops = function() {
+    const filter = document.getElementById("cropFilter").value;
+    const cards = document.querySelectorAll(".crop-card");
+
+    cards.forEach(function(card) {
+        card.style.display =
+            filter === "all" || card.dataset.status === filter
+                ? "block"
+                : "none";
+    });
+};
+
+document.getElementById("cropForm").addEventListener(
+    "submit",
+    async function(event) {
+        event.preventDefault();
+
+        if (!currentUser) {
+            alert("Please login as a farmer first.");
+            return;
+        }
+
+        const cropName = document.getElementById("cropName").value;
+        const fieldName = document.getElementById("fieldName").value.trim();
+        const areaAcres = Number(document.getElementById("areaAcres").value);
+        const sowingDate = document.getElementById("sowingDate").value;
+
+        if (!cropName || !fieldName || areaAcres <= 0 || !sowingDate) {
+            alert("Please enter valid crop details.");
+            return;
+        }
+
+        try {
+            await addDoc(collection(db, "cropSales"), {
+                farmerUid: currentUser.uid,
+                cropName: cropName,
+                fieldName: fieldName,
+                areaAcres: areaAcres,
+                sowingDate: sowingDate,
+                status: "Growing",
+                createdAt: serverTimestamp()
+            });
+
+            alert("Crop saved successfully in Firebase! 🌱");
+            document.getElementById("cropForm").reset();
+            window.closeCropForm();
+
+        } catch (error) {
+    console.error("Crop save error:", error);
+
+    alert(
+        "Error Code: " + error.code +
+        "\nError Message: " + error.message
+    );
+}
+    }
+);
+</script>
+
+</body>
+</html>

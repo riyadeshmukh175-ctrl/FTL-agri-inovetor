@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality Check | AgriConnect AI</title>
+    <link rel="stylesheet" href="company.css">
+    <script type="module">
+    import { auth } from "./firebase.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            window.location.href = "login.html";
+        }
+    });
+</script>
+</head>
+<body>
+
+<div class="page-content">
+    <h1>✅ Crop Quality Check</h1>
+    <p>Inspect crop quality before accepting a purchase.</p>
+
+    <div class="order-card">
+        <h2>🍅 Tomato — Order #AGR1001</h2>
+        <p>Farmer: Rajesh Patil</p>
+        <p>Quantity: 500 KG</p>
+        <p>Location: Nagpur</p>
+
+        <label for="grade">Select Quality Grade:</label>
+        <select id="grade">
+            <option value="A">Grade A - Excellent</option>
+            <option value="B">Grade B - Good</option>
+            <option value="C">Grade C - Average</option>
+            <option value="Rejected">Rejected</option>
+        </select>
+
+        <br><br>
+
+        <label for="freshness">Freshness:</label>
+        <select id="freshness">
+            <option>Fresh</option>
+            <option>Moderate</option>
+            <option>Not Fresh</option>
+        </select>
+
+        <br><br>
+
+        <label for="remarks">Inspection Remarks:</label>
+        <br>
+        <textarea id="remarks"
+            placeholder="Enter inspection remarks"></textarea>
+
+        <br><br>
+
+        <button onclick="saveQuality()">Save Inspection</button>
+
+        <p id="result"></p>
+    </div>
+
+    <br>
+    <a href="dashboard.html">← Return to Dashboard</a>
+</div>
+
+<style>
+    
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f7f3;
+    color: #173d2b;
+}
+
+.page-content {
+    padding: 35px 20px;
+    min-height: 100vh;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.page-content > h1 {
+    color: #176b38;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.page-content > p {
+    color: #53675b;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.order-card {
+    background: #ffffff;
+    padding: 30px;
+    margin-top: 25px;
+    max-width: 650px;
+    border: 1px solid #dfede2;
+    border-radius: 16px;
+    box-shadow: 0 6px 22px rgba(0, 60, 30, 0.08);
+}
+
+.order-card h2 {
+    color: #176b38;
+    margin-top: 0;
+    margin-bottom: 22px;
+}
+
+.order-card > p {
+    color: #53675b;
+    padding: 10px 12px;
+    background: #f7fbf7;
+    border-radius: 8px;
+    line-height: 1.5;
+}
+
+label {
+    display: block;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #24583a;
+}
+
+select,
+textarea {
+    display: block;
+    padding: 12px;
+    margin-top: 9px;
+    width: 100%;
+    border: 1px solid #c9ddce;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #173d2b;
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+select:focus,
+textarea:focus {
+    outline: 2px solid #70b987;
+    border-color: #237a43;
+}
+
+button {
+    background: linear-gradient(135deg, #27864a, #17552e);
+    color: white;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: 0.2s ease;
+}
+
+button:hover {
+    background: #176b38;
+    transform: translateY(-2px);
+}
+
+#result {
+    margin-top: 20px;
+    padding: 14px;
+    background: #edf7ef;
+    border-radius: 9px;
+    color: #176b38;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+#result:empty {
+    display: none;
+}
+
+.page-content > a {
+    display: inline-block;
+    margin-top: 25px;
+    color: #237a43;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.page-content > a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .page-content {
+        padding: 22px 15px;
+    }
+
+    .page-content > h1 {
+        font-size: 26px;
+    }
+
+    .order-card {
+        padding: 20px;
+    }
+}
+
+</style>
+
+<script>
+function saveQuality() {
+    const grade = document.getElementById("grade").value;
+    const freshness = document.getElementById("freshness").value;
+    const remarks = document.getElementById("remarks").value;
+
+    document.getElementById("result").textContent =
+        "Inspection complete! Grade: " + grade +
+        " | Freshness: " + freshness +
+        " | Remarks: " + (remarks || "No remarks");
+}
+</script>
+
+</body>
+</html>

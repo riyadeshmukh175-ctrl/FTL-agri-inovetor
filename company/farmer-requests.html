@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmer Crop Requests | AgriConnect AI</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f7f3;
+      color: #173d2b;
+    }
+
+    header {
+      background: #073c2a;
+      color: white;
+      padding: 22px 35px;
+    }
+
+    header a {
+      color: white;
+      text-decoration: none;
+    }
+
+    main { padding: 30px; }
+
+    .requests {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+      margin-top: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 24px;
+      border-radius: 15px;
+      box-shadow: 0 4px 18px #00000010;
+    }
+
+    .card h2 { color: #138747; }
+
+    .card p {
+      color: #53675b;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    button {
+      padding: 11px 18px;
+      border: none;
+      border-radius: 7px;
+      color: white;
+      cursor: pointer;
+      margin: 5px 4px 0 0;
+    }
+
+    .accept { background: #159447; }
+    .reject { background: #d94343; }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 20px;
+      color: #138747;
+      text-decoration: none;
+    }
+
+    #pageMessage { margin-top: 20px; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h2>🌾 AgriConnect AI</h2>
+    <a href="dashboard.html">← Back to Company Dashboard</a>
+  </header>
+
+  <main>
+    <h1>Farmer Crop Requests</h1>
+    <p>View crop details submitted by farmers.</p>
+
+    <p id="pageMessage">Checking login and loading crops...</p>
+    <div class="requests" id="cropRequests"></div>
+
+    <a class="back" href="dashboard.html">← Return to Dashboard</a>
+  </main>
+
+  <script type="module">
+    import { auth, db } from "./firebase.js";
+
+    import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+import {
+  collection,
+  query,
+  orderBy,
+  where,
+  doc,
+  updateDoc,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+    const requests = document.getElementById("cropRequests");
+    const pageMessage = document.getElementById("pageMessage");
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      await loadCrops();
+    });
+
+    async function loadCrops() {
+      requests.replaceChildren();
+      pageMessage.textContent = "Loading crops...";
+
+      try {
+        const cropsQuery = query(
+          collection(db, "cropSales"),
+          orderBy("createdAt", "desc")
+        );
+
+        const snapshot = await getDocs(cropsQuery);
+
+        if (snapshot.empty) {
+          pageMessage.textContent = "No crops have been listed yet.";
+          return;
+        }
+
+        snapshot.forEach((cropDoc) => {
+          const crop = cropDoc.data();
+          const card = document.createElement("div");
+          card.className = "card";
+
+          const title = document.createElement("h2");
+          title.textContent = "🌾 " + (crop.cropName || "Crop");
+
+          const quantity = document.createElement("p");
+          quantity.textContent =
+            "Quantity: " + (crop.quantityKg ?? "N/A") + " KG";
+
+          const price = document.createElement("p");
+          price.textContent =
+            "Expected Price: ₹" + (crop.pricePerKg ?? "N/A") + " / KG";
+
+          const total = document.createElement("p");
+          total.textContent =
+            "Total Expected Amount: ₹" + (crop.totalAmount ?? "N/A");
+
+          
+const status = document.createElement("p");
+status.textContent = "Status: " + (crop.status || "Pending");
+status.className = "crop-status";
+
+const actions = document.createElement("div");
+actions.className = "crop-actions";
+
+const acceptBtn = document.createElement("button");
+acceptBtn.textContent = "✓ Accept";
+acceptBtn.className = "accept";
+
+const rejectBtn = document.createElement("button");
+rejectBtn.textContent = "✕ Reject";
+rejectBtn.className = "reject";
+
+
+acceptBtn.addEventListener("click", async () => {
+  await window.updateCropStatus(cropDoc.id, "Accepted");
+});
+
+rejectBtn.addEventListener("click", async () => {
+  await window.updateCropStatus(cropDoc.id, "Rejected");
+});
+
+
+actions.append(acceptBtn, rejectBtn);
+card.append(title, quantity, price, total, status, actions);
+requests.appendChild(card);
+
+        });
+
+        pageMessage.textContent = "Crop listings loaded successfully.";
+
+      } catch (error) {
+        console.error("Error loading crops:", error);
+        pageMessage.textContent =
+          "Could not load crops: " + error.code;
+      }
+    }
+
+    window.updateCropStatus = async function (cropId, newStatus) {
+  if (!auth.currentUser) {
+    alert("Please login as a company first.");
+    return;
+  }
+
+  const confirmed = confirm(
+    `Are you sure you want to ${newStatus} this crop request?`
+  );
+
+  if (!confirmed) return;
+
+  try {
+    await updateDoc(doc(db, "cropSales", cropId), {
+      status: newStatus
+    });
+
+    alert(`Crop request ${newStatus} successfully!`);
+
+    window.location.reload();
+  } catch (error) {
+    console.error("Status update error:", error);
+    alert("Could not update status: " + error.message);
+  }
+};
+  </script>
+</body>
+</html>

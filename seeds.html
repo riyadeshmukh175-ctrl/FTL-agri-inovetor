@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seed | AgriConnect AI</title>
+    <link rel="stylesheet" href="style.css">
+
+
+
+<style>
+.feature {
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.feature:hover {
+    background: #e5f5e9;
+    transform: translateY(-3px);
+}
+
+.feature-details {
+    display: none;
+    margin-top: 12px;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    line-height: 1.7;
+}
+
+.feature-details.show {
+    display: block;
+}
+</style>
+
+
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <div class="logo-icon">🌿</div>
+            <div>
+                <h2>AgriConnect <span>AI</span></h2>
+                <small>From Seed to Sale</small>
+            </div>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#process">How It Works</a>
+        </nav>
+    </header>
+
+    <section class="process">
+        <div class="section-title">
+            <h2>🌱 Seed Selection</h2>
+            <p>Choose the right seeds for better crop production</p>
+        </div>
+
+        
+
+<div class="feature-grid">
+
+    <div class="feature" onclick="showSeedDetails('crop')">
+        <span>🌾</span>
+        <div>
+            <h3>Crop Selection</h3>
+            <p>Select a suitable crop according to your soil, climate and farming conditions.</p>
+        </div>
+    </div>
+
+    <div class="feature" onclick="showSeedDetails('quality')">
+        <span>🧪</span>
+        <div>
+            <h3>Seed Quality</h3>
+            <p>Use high-quality and healthy seeds for better germination and crop growth.</p>
+        </div>
+    </div>
+
+    <div class="feature" onclick="showSeedDetails('weather')">
+        <span>🌦️</span>
+        <div>
+            <h3>Weather Suitability</h3>
+            <p>Choose seeds suitable for local weather and seasonal conditions.</p>
+        </div>
+    </div>
+
+    <div class="feature" onclick="showSeedDetails('ai')">
+        <span>🤖</span>
+        <div>
+            <h3>AI Recommendation</h3>
+            <p>Get crop and seed suggestions based on farming conditions.</p>
+        </div>
+    </div>
+
+</div>
+
+
+        <div style="text-align:center; margin-top:40px;">
+            <a href="index.html#process" class="primary-btn">
+                ← Back to How It Works
+            </a>
+        </div>
+
+<div id="seedDetails" style="
+    display:none;
+    background:white;
+    padding:20px;
+    margin:25px auto;
+    max-width:600px;
+    border-radius:12px;
+    box-shadow:0 4px 15px #00000015;
+">
+    <h2 id="detailsTitle"></h2>
+    <p id="detailsText"></p>
+    <div id="detailsOptions"></div>
+    <button onclick="closeSeedDetails()" class="primary-btn">
+        Close
+    </button>
+</div>
+
+<script>
+function showSeedDetails(type) {
+    const details = {
+        crop: {
+            title: "🌾 Crop Selection",
+            text: "Choose a crop according to your soil, climate and season.",
+            options: ["Wheat", "Rice", "Soybean", "Cotton", "Tomato"]
+        },
+        quality: {
+            title: "🧪 Seed Quality",
+            text: "Check seed quality before planting.",
+            options: [
+                "Check expiry date",
+                "Choose certified seeds",
+                "Check seeds for damage"
+            ]
+        },
+        weather: {
+            title: "🌦️ Weather Suitability",
+            text: "Consider rainfall, temperature and the current season.",
+            options: [
+                "Rainy season",
+                "Winter season",
+                "Summer season"
+            ]
+        },
+        ai: {
+            title: "🤖 AI Recommendation",
+            text: "Select your soil type to see a basic crop suggestion.",
+            options: []
+        }
+    };
+
+    const item = details[type];
+
+    document.getElementById("detailsTitle").textContent = item.title;
+    document.getElementById("detailsText").textContent = item.text;
+
+    const options = document.getElementById("detailsOptions");
+    options.innerHTML = "";
+
+    if (type === "ai") {
+        options.innerHTML = `
+            <label for="soilType">Select Soil Type:</label>
+            <select id="soilType">
+                <option value="">Choose soil</option>
+                <option value="Black">Black Soil</option>
+                <option value="Red">Red Soil</option>
+                <option value="Sandy">Sandy Soil</option>
+                <option value="Alluvial">Alluvial Soil</option>
+            </select>
+            <button class="primary-btn" onclick="recommendCrop()">
+                Get Recommendation
+            </button>
+            <p id="recommendation"></p>
+        `;
+    } else {
+        item.options.forEach(option => {
+            const p = document.createElement("p");
+            p.textContent = "✓ " + option;
+p.style.cursor = "pointer";
+p.style.padding = "10px";
+p.style.borderBottom = "1px solid #ddd";
+
+p.onclick = function () {
+    openSeedOption(type, option);
+};
+
+            options.appendChild(p);
+        });
+    }
+
+    document.getElementById("seedDetails").style.display = "block";
+    document.getElementById("seedDetails").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+
+function recommendCrop() {
+    const soil = document.getElementById("soilType").value;
+    const result = document.getElementById("recommendation");
+
+    const crops = {
+        Black: "Cotton or Soybean",
+        Red: "Millet or Groundnut",
+        Sandy: "Millet",
+        Alluvial: "Wheat or Rice"
+    };
+
+    result.textContent = soil
+        ? "Basic suggestion: " + crops[soil] +
+          ". Check local climate and farming advice before planting."
+        : "Please select a soil type.";
+}
+
+function closeSeedDetails() {
+    document.getElementById("seedDetails").style.display = "none";
+}
+
+function openSeedOption(type, option) {
+    const pages = {
+        "Wheat": "seed-details.html?topic=wheat",
+        "Rice": "seed-details.html?topic=rice",
+        "Soybean": "seed-details.html?topic=soybean",
+        "Cotton": "seed-details.html?topic=cotton",
+        "Tomato": "seed-details.html?topic=tomato"
+    };
+
+    const page = pages[option];
+
+    if (page) {
+        window.location.href = page;
+    } else {
+        window.location.href =
+            "seed-details.html?topic=" +
+            encodeURIComponent(option);
+    }
+}
+</script>
+
+
+    </section>
+
+</body>
+</html>

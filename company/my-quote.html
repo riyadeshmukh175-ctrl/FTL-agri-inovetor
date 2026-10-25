@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Quotes | AgriConnect AI</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f8f1;
+      color: #173d2b;
+    }
+
+    header {
+      background: #174d32;
+      color: white;
+      padding: 22px 6%;
+    }
+
+    nav {
+      background: white;
+      padding: 16px 6%;
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #174d32;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 18px;
+    }
+
+    .quote-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .quote-card {
+      background: white;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 4px 14px #0001;
+    }
+
+    .quote-card h3 {
+      margin-bottom: 14px;
+    }
+
+    .quote-card p {
+      margin: 12px 0;
+      overflow-wrap: anywhere;
+    }
+
+    .status {
+      display: inline-block;
+      background: #fff0c2;
+      color: #805b00;
+      padding: 7px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    #message {
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+
+    footer {
+      margin-top: 35px;
+      padding: 22px;
+      background: #174d32;
+      color: white;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>🌿 AgriConnect AI</h1>
+    <p>My Submitted Quotes</p>
+  </header>
+
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="monitoring.html">Monitoring</a>
+    <a href="quote.html">Submit Quote</a>
+    <a href="my-quotes.html">My Quotes</a>
+  </nav>
+
+  <main>
+    <h2>💰 My Saved Quotes</h2>
+    <p style="margin-top: 10px;">
+      View the price offers submitted by your company.
+    </p>
+
+    <p id="message" role="status">Loading quotes...</p>
+    <div class="quote-list" id="quoteList"></div>
+  </main>
+
+  <footer>
+    © 2026 AgriConnect AI | From Seed to Sale 🌾
+  </footer>
+
+  <script type="module">
+    import { auth, db } from "./firebase.js";
+
+    import {
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    import {
+      collection,
+      getDocs,
+      query,
+      where,
+      orderBy
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+    const message = document.getElementById("message");
+    const quoteList = document.getElementById("quoteList");
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        message.textContent = "Please log in to your company account.";
+        quoteList.replaceChildren();
+        return;
+      }
+
+      message.textContent = "Loading your quotes...";
+      quoteList.replaceChildren();
+
+      try {
+        const quotesQuery = query(
+          collection(db, "quotes"),
+          where("companyUid", "==", user.uid)
+        );
+
+        const snapshot = await getDocs(quotesQuery);
+
+        if (snapshot.empty) {
+          message.textContent = "No quotes found. Submit your first quote!";
+          return;
+        }
+
+        const quotes = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+
+        quotes.sort((a, b) => {
+          const dateA = a.createdAt?.toMillis?.() || 0;
+          const dateB = b.createdAt?.toMillis?.() || 0;
+          return dateB - dateA;
+        });
+
+        quotes.forEach((quote) => {
+          const card = document.createElement("article");
+          card.className = "quote-card";
+
+          const title = document.createElement("h3");
+          title.textContent = "🌾 " + (quote.cropName || "Crop");
+
+          const quantity = document.createElement("p");
+          quantity.textContent =
+            "Quantity: " + (quote.quantityKg ?? "N/A") + " kg";
+
+          const price = document.createElement("p");
+          price.textContent =
+            "Offer Price: ₹" + (quote.offerPricePerKg ?? "N/A") + " / kg";
+
+          const delivery = document.createElement("p");
+          delivery.textContent =
+            "Delivery: " + (quote.deliveryOption || "Not specified");
+
+          const status = document.createElement("span");
+          status.className = "status";
+          status.textContent = quote.status || "Pending";
+
+          const notes = document.createElement("p");
+          notes.textContent = "Notes: " + (quote.notes || "None");
+
+          card.append(title, quantity, price, delivery, status, notes);
+          quoteList.appendChild(card);
+        });
+
+        message.textContent = "Your saved quotes: " + snapshot.size;
+
+      } catch (error) {
+        console.error("Loading quotes error:", error);
+        message.textContent = "Could not load quotes: " + error.message;
+      }
+    });
+  </script>
+</body>
+</html>

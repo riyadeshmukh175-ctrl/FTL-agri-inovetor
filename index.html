@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AgriConnect AI | Smart Agriculture</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    
+    
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+
+        <div class="logo">
+            <div class="logo-icon">🌿</div>
+            <div>
+                <h2>AgriConnect <span>AI</span></h2>
+                <small>From Seed to Sale</small>
+            </div>
+        </div>
+
+<style>
+#aiDetails {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    padding: 25px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    z-index: 9999;
+}
+</style>
+
+
+        <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#ai">AI Farming</a>
+            <a href="#marketplace">Marketplace</a>
+            <a href="#process">How It Works</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="nav-buttons">
+    <a href="login.html" class="login-btn">Login</a>
+    <a href="registration.html" class="register-btn">Register</a>
+</div>
+
+    </header>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                🌱 Smart Agriculture | 🤖 AI Powered
+            </div>
+
+            <h1>
+                Empowering Farmers
+                <br>
+                with <span>AI</span> for a
+                <br>
+                <span>Greener Future</span>
+            </h1>
+
+            <p>
+                AgriConnect AI connects farmers, companies and customers
+                through smart technology — from seed to sale.
+            </p>
+
+            <div class="hero-buttons">
+    <button class="primary-btn" onclick="startJourney()">
+        Get Started →
+    </button>
+
+    <button class="outline-btn" onclick="watchDemo()">
+        ▶ Watch Demo
+    </button>
+</div>
+
+        </div>
+
+        <div class="hero-image">
+
+            <div class="farmer-circle">
+                👨‍🌾
+            </div>
+
+           <div class="ai-center">
+  <svg class="ai-leaf-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="AgriConnect AI logo">
+    <defs>
+      <linearGradient id="leafGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#65d66e"/>
+        <stop offset="100%" stop-color="#d4f878"/>
+      </linearGradient>
+    </defs>
+
+    <path d="M50 80 C15 72 12 38 22 18 C48 16 78 27 79 51 C80 66 66 78 50 80Z"
+          fill="url(#leafGradient)"/>
+
+    <path d="M28 29 Q48 48 50 80 M39 43 L61 37 M46 56 L65 50 M49 68 L37 61"
+          fill="none" stroke="#123c27" stroke-width="3.5"
+          stroke-linecap="round"/>
+
+    <circle cx="72" cy="25" r="13" fill="#f4c95d"/>
+    <text x="72" y="29" text-anchor="middle"
+          font-size="11" font-weight="900" fill="#173d2b">AI</text>
+  </svg>
+</div>
+
+            <div class="ai-card card1">🌱 Crop Recommendation</div>
+            <div class="ai-card card2">🌦️ Weather Advisory</div>
+            <div class="ai-card card3">💧 Smart Irrigation</div>
+            <div class="ai-card card4">🦠 Disease Detection</div>
+
+        </div>
+
+    </section>
+
+
+    <!-- USER TYPES -->
+    <section class="users">
+
+        <div class="user-card">
+            <div class="user-icon farmer">👨‍🌾</div>
+            <h3>For Farmers</h3>
+            <p>
+                Get AI-powered farming guidance, monitor crops
+                and sell directly to companies.
+            </p>
+            <a href="login.html">Learn More →</a>
+        </div>
+
+        <div class="user-card">
+            <div class="user-icon company">🏢</div>
+            <h3>For Companies</h3>
+            <p>
+                Source fresh produce directly from farmers
+                and manage your supply chain.
+            </p>
+            <a href="company/login.html">Learn More →</a>
+        </div>
+
+        <div class="user-card">
+            <div class="user-icon customer">🛒</div>
+            <h3>For Customers</h3>
+            <p>
+                Buy quality agricultural products from
+                trusted sources.
+            </p>
+            <a href="sale.html">Learn More →</a>
+        </div>
+
+    </section>
+
+
+
+    <!-- HOW IT WORKS -->
+    <section class="process" id="process">
+
+        <div class="section-title">
+            <h2>How It Works</h2>
+            <p>Complete Agricultural Lifecycle — Powered by AI</p>
+        </div>
+
+        
+<div class="steps">
+
+    <a href="seeds.html" class="step">
+        <div class="step-icon">🌱</div>
+        <span>01</span>
+        <h3>Seed</h3>
+        <p>Choose the right crop and seeds with AI recommendations.</p>
+    </a>
+
+    <div class="arrow">→</div>
+
+    <a href="farm.html" class="step">
+        <div class="step-icon">🚜</div>
+        <span>02</span>
+        <h3>Farm</h3>
+        <p>Manage soil, irrigation, fertilizer and crop health.</p>
+    </a>
+
+    <div class="arrow">→</div>
+
+    <a href="harvest.html" class="step">
+        <div class="step-icon">🌾</div>
+        <span>03</span>
+        <h3>Harvest</h3>
+        <p>Monitor growth and get AI-based harvest predictions.</p>
+    </a>
+
+    <div class="arrow">→</div>
+
+    <a href="company.html" class="step">
+        <div class="step-icon">🏭</div>
+        <span>04</span>
+        <h3>Company</h3>
+        <p>Connect farmers directly with companies and buyers.</p>
+    </a>
+
+    <div class="arrow">→</div>
+
+    <a href="sale.html" class="step">
+        <div class="step-icon">💰</div>
+        <span>05</span>
+        <h3>Sale</h3>
+        <p>Sell crops, track delivery and manage payments.</p>
+    </a>
+
+</div>
+
+    </section>
+
+
+    <!-- AI FEATURES -->
+    <section class="features" id="ai">
+
+        <div class="section-title">
+            <h2>Our AI-Powered Features</h2>
+            <p>Smart technology for better farming and better decisions</p>
+        </div>
+
+        <div class="feature-grid">
+
+            <div class="feature" onclick="showAIDetails('soil')">
+                <span>🧪</span>
+                <div>
+                    <h3>Soil Analysis</h3>
+                    <p>Analyze soil health and nutrients.</p>
+                </div>
+            </div>
+
+            <div class="feature" onclick="showAIDetails('crop')">
+                <span>🌱</span>
+                <div>
+                    <h3>Crop Recommendation</h3>
+                    <p>Find suitable crops for your land.</p>
+                </div>
+            </div>
+
+            <div class="feature" onclick="showAIDetails('disease')">
+                <span>🦠</span>
+                <div>
+                    <h3>Disease Detection</h3>
+                    <p>Identify crop diseases using AI.</p>
+                </div>
+            </div>
+
+            <div class="feature" onclick="showAIDetails('pest')">
+                <span>🐛</span>
+                <div>
+                    <h3>Pest Detection</h3>
+                    <p>Detect and manage crop pests.</p>
+                </div>
+            </div>
+
+            <div class="feature" onclick="showAIDetails('weather')">
+                <span>🌦️</span>
+                <div>
+                    <h3>Weather Advisory</h3>
+                    <p>Weather-based farming guidance.</p>
+                </div>
+            </div>
+
+            <div class="feature" onclick="showAIDetails('irrigation')">
+                <span>💧</span>
+                <div>
+                    <h3>Smart Irrigation</h3>
+                    <p>Manage water efficiently.</p>
+                </div>
+            </div>
+
+            <div class="feature" onclick="showAIDetails('fertilizer')">
+                <span>🧴</span>
+                <div>
+                    <h3>Fertilizer Guide</h3>
+                    <p>Get fertilizer recommendations.</p>
+                </div>
+            </div>
+
+            <div class="feature" onclick="showAIDetails('harvest')">
+                <span>📊</span>
+                <div>
+                    <h3>Harvest Prediction</h3>
+                    <p>Estimate harvest time and yield.</p>
+                </div>
+            </div>
+
+            <div class="feature" onclick="showAIDetails('market')">
+                <span>💹</span>
+                <div>
+                    <h3>Market Prices</h3>
+                    <p>Check crop market information.</p>
+                </div>
+            </div>
+
+            <div class="feature" onclick="showAIDetails('crop')">
+                <span>🚜</span>
+                <div>
+                    <h3>Sell Your Crop</h3>
+                    <p>Connect farmers with buyers.</p>
+                </div>
+            </div>
+
+            <div class="feature" onclick="showAIDetails('logistics')">
+                <span>🚚</span>
+                <div>
+                    <h3>Logistics Tracking</h3>
+                    <p>Track crop transportation.</p>
+                </div>
+            </div>
+
+            <div class="feature" onclick="showAIDetails('payment')">
+                <span>💳</span>
+                <div>
+                    <h3>Payment Management</h3>
+                    <p>Manage agricultural payments.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MARKETPLACE -->
+    <section class="marketplace" id="marketplace">
+
+        <div>
+            <span class="small-title">🌾 FARM TO MARKET</span>
+
+            <h2>
+                From Your Farm
+                <br>
+                Directly to the <span>Company</span>
+            </h2>
+
+            <p>
+                List your crop, receive buyer offers, arrange transportation,
+                complete quality verification and manage payment — all from
+                one platform.
+            </p>
+
+            <button class="primary-btn" onclick="sellCrop()">
+                Sell Your Crop →
+            </button>
+        </div>
+
+        <div class="market-flow">
+
+            <div>👨‍🌾<strong>Farmer</strong></div>
+            <span>→</span>
+            <div>🌾<strong>Crop</strong></div>
+            <span>→</span>
+            <div>🏭<strong>Company</strong></div>
+            <span>→</span>
+            <div>🚚<strong>Delivery</strong></div>
+            <span>→</span>
+            <div>💰<strong>Payment</strong></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+
+        <div class="about-box">
+
+            <div>
+                <span class="small-title">ABOUT AGRICONNECT AI</span>
+
+                <h2>
+                    Technology for a
+                    <span>Better Agriculture</span>
+                </h2>
+
+                <p>
+                    AgriConnect AI is designed to bring farmers,
+                    agricultural companies and customers together
+                    through a single digital platform.
+                </p>
+
+                <p>
+                    Our goal is to simplify farming decisions,
+                    improve crop management and make the journey
+                    from farm to market more transparent.
+                </p>
+
+            </div>
+
+            <div class="stats">
+
+                <div>
+                    <strong>AI</strong>
+                    <span>Smart Farming</span>
+                </div>
+
+                <div>
+                    <strong>24/7</strong>
+                    <span>Digital Support</span>
+                </div>
+
+                <div>
+                    <strong>100%</strong>
+                    <span>Connected Platform</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<div id="aiDetails" style="display:none; margin:20px auto; padding:20px; max-width:800px; background:white; border-radius:12px;">
+    <h3 id="aiTitle"></h3>
+    <p id="aiText"></p>
+    <p id="aiExtra"></p>
+    <button class="primary-btn" onclick="closeAIDetails()">✖ Close</button>
+</div>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+
+        <div class="footer-main">
+
+            <div class="footer-brand">
+                <h2>🌿 AgriConnect <span>AI</span></h2>
+                <p>From Seed to Sale</p>
+                <p>
+                    Smart agriculture. Better decisions.
+                    Sustainable future.
+                </p>
+            </div>
+
+            <div>
+                <h3>Quick Links</h3>
+                <a href="#">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#ai">AI Farming</a>
+                <a href="#marketplace">Marketplace</a>
+            </div>
+
+            <div>
+                <h3>Services</h3>
+                <a href="#">Soil Analysis</a>
+                <a href="#">Crop Doctor</a>
+                <a href="#">Sell Crop</a>
+                <a href="#">Logistics</a>
+            </div>
+
+            <div>
+                <h3>Contact</h3>
+                <p>📧 support@agriconnect.ai</p>
+                <p>📞 +91 XXXXX XXXXX</p>
+                <p>📍 India</p>
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 AgriConnect AI. All Rights Reserved.
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+
+
+<script>
+function showAIDetails(type) {
+
+
+const data = {
+    soil: [
+        "🧪 Soil Analysis",
+        "Soil analysis helps farmers understand the quality and health of their soil.",
+        "• Soil pH: Check whether the soil is acidic or alkaline.\n\n• Nutrients: Understand nitrogen, phosphorus and potassium levels.\n\n• Soil Health: Identify possible nutrient deficiencies.\n\n• Recommendation: Use soil-test results to plan suitable fertilizers and improve soil fertility."
+    ],
+    crop: [
+        "🌱 Crop Recommendation",
+        "Choose crops that are suitable for your farm's conditions.",
+        "• Soil Type: Consider the type and quality of soil.\n\n• Season: Select crops suitable for the current season.\n\n• Water Availability: Consider irrigation and rainfall.\n\n• Climate: Check temperature and local weather conditions.\n\n• Recommendation: Compare these factors before selecting a crop."
+    ],
+    disease: [
+        "🦠 Disease Detection",
+        "Identify possible crop diseases early to help protect crop health.",
+        "• Leaf Inspection: Look for spots, yellowing and unusual marks.\n\n• Symptoms: Observe wilting, discoloration and damaged plant parts.\n\n• Image Analysis: A future AI image feature can help analyze uploaded crop photos.\n\n• Action: Confirm the disease before applying any treatment.\n\n• Prevention: Maintain field hygiene and monitor crops regularly."
+    ],
+    pest: [
+        "🐛 Pest Detection",
+        "Monitor crops for insects and signs of pest damage.",
+        "• Warning Signs: Check holes in leaves and damaged stems.\n\n• Regular Inspection: Examine leaves and plants frequently.\n\n• Pest Management: Choose control methods suitable for the identified pest.\n\n• Prevention: Keep the field clean and protect beneficial insects."
+    ],
+    weather: [
+        "🌦️ Weather Advisory",
+        "Weather information helps farmers plan daily agricultural activities.",
+        "• Rainfall: Check rain forecasts before irrigation or spraying.\n\n• Temperature: Consider heat and cold conditions.\n\n• Wind: Check wind conditions before spraying crops.\n\n• Planning: Schedule sowing, irrigation and harvesting according to reliable local forecasts."
+    ],
+    irrigation: [
+        "💧 Smart Irrigation",
+        "Use water efficiently according to crop and soil requirements.",
+        "• Soil Moisture: Check whether the soil needs water.\n\n• Crop Needs: Different crops require different amounts of water.\n\n• Water Schedule: Plan irrigation based on crop growth and weather.\n\n• Conservation: Avoid unnecessary watering and waterlogging."
+    ],
+    fertilizer: [
+        "🧴 Fertilizer Guide",
+        "Plan fertilizer use based on soil-test results and crop requirements.",
+        "• Soil Testing: Identify nutrient deficiencies.\n\n• Nutrient Selection: Understand the role of nitrogen, phosphorus and potassium.\n\n• Application: Follow recommended quantities and timing.\n\n• Safety: Avoid excessive fertilizer use and follow product instructions."
+    ],
+    harvest: [
+        "📊 Harvest Prediction",
+        "Estimate when crops may be ready for harvesting.",
+        "• Crop Growth: Monitor the crop's growth stage.\n\n• Weather: Consider upcoming rain and other weather conditions.\n\n• Maturity: Check crop-specific signs of readiness.\n\n• Planning: Arrange workers, storage and transport in advance.\n\nNote: Actual yield and harvest dates depend on field conditions."
+    ],
+    market: [
+        "💹 Market Prices",
+        "Review market information before deciding when and where to sell crops.",
+        "• Crop Rates: Compare prices for your crop.\n\n• Market Selection: Check nearby markets and buyers.\n\n• Quality: Consider crop quality and grading requirements.\n\n• Selling Decision: Compare the offered price with transport and other costs.\n\nNote: Live prices require a connected, up-to-date data source."
+    ],
+    logistics: [
+        "🚚 Logistics Tracking",
+        "Organize crop transportation from the farm to the buyer.",
+        "• Transport Planning: Arrange a suitable vehicle.\n\n• Delivery: Coordinate pickup and delivery schedules.\n\n• Crop Protection: Use suitable packaging and storage conditions.\n\n• Tracking: Record dispatch and delivery status.\n\nNote: Live vehicle tracking requires an integrated tracking service."
+    ],
+    payment: [
+        "💳 Payment Management",
+        "Keep crop-sale payment information organized and easy to review.",
+        "• Sale Record: Record the crop, quantity and agreed price.\n\n• Payment Status: Track pending and completed payments.\n\n• Transaction Details: Keep dates and reference numbers.\n\n• Verification: Confirm payment with the bank or payment provider.\n\nNote: Actual payment processing requires a secure payment integration."
+    ]
+};
+
+
+
+if (!data[type]) {
+    return;
+}
+    document.getElementById("aiTitle").textContent = data[type][0];
+    document.getElementById("aiText").textContent = data[type][1];
+document.getElementById("aiExtra").innerText = data[type][2];
+    const box = document.getElementById("aiDetails");
+    box.style.display = "block";
+    
+}
+
+function closeAIDetails() {
+    document.getElementById("aiDetails").style.display = "none";
+}
+</script>
+
+</body>
+
+</html>

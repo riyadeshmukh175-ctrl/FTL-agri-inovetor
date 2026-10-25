@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Farmer Dashboard | AgriConnect AI</title>
+
+    <link rel="stylesheet" href="farmer.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="dashboard-logo">
+            🌿
+            <div>
+                <strong>AgriConnect <span>AI</span></strong>
+                <small>Farmer Portal</small>
+            </div>
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="#" class="menu-active">🏠 <span>Overview</span></a>
+
+            <a href="my-crops.html">🌱 <span>My Crops</span></a>
+
+            <a href="#">🧪 <span>Soil Analysis</span></a>
+
+            <a href="#">🤖 <span>AI Crop Doctor</span></a>
+
+            <a href="#">🌦️ <span>Weather</span></a>
+
+            <a href="#">💧 <span>Irrigation</span></a>
+
+            <a href="#">🧴 <span>Fertilizer</span></a>
+
+            <a href="#">🌾 <span>Harvest</span></a>
+
+            <a href="sell-crops.html">💰 <span>Sell My Crop</span></a>
+
+            <a href="my-order.html">📦 <span>My Orders</span></a>
+
+            <a href="#">🚚 <span>Transport Tracking</span></a>
+
+            <a href="#">💳 <span>Payments</span></a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="#">⚙️ Settings</a>
+
+            <a href="../index.html">🚪 Logout</a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="dashboard-main">
+
+        <!-- TOPBAR -->
+        <header class="dashboard-header">
+
+            <div>
+                <h1>Good Morning, Farmer! 👋</h1>
+                <p>Here's what's happening on your farm today.</p>
+            </div>
+
+            <div class="header-actions">
+
+                <button class="notification">🔔</button>
+
+                <div class="profile">
+
+                    <div class="profile-icon">
+                        👨‍🌾
+                    </div>
+
+                    <div>
+                        <strong>Farmer</strong>
+                        <small>Farmer Account</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- STAT CARDS -->
+        <section class="dashboard-stats">
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    🌱
+                </div>
+
+                <div>
+                    <small>Active Crops</small>
+                    <h2>03</h2>
+                    <span class="positive">↑ 1 this season</span>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon yellow">
+                    🌾
+                </div>
+
+                <div>
+                    <small>Expected Harvest</small>
+                    <h2>12 Days</h2>
+                    <span>Tomato Crop</span>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    💰
+                </div>
+
+                <div>
+                    <small>Total Sales</small>
+                    <h2>₹25,000</h2>
+                    <span class="positive">↑ 12% this month</span>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon orange">
+                    📦
+                </div>
+
+                <div>
+                    <small>Active Orders</small>
+                    <h2>02</h2>
+                    <span>1 in transit</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- MAIN GRID -->
+        <section class="dashboard-grid">
+
+            <!-- CROP HEALTH -->
+            <div class="dashboard-card crop-health">
+
+                <div class="card-heading">
+
+                    <div>
+                        <h2>Crop Health</h2>
+                        <p>Current crop condition</p>
+                    </div>
+
+                    <button>View All</button>
+
+                </div>
+
+
+                <div class="health-item">
+
+                    <div class="crop-symbol">
+                        🍅
+                    </div>
+
+                    <div class="crop-info">
+                        <strong>Tomato</strong>
+                        <small>Field A • 2 Acres</small>
+                    </div>
+
+                    <div class="health-status good">
+                        Healthy
+                    </div>
+
+                </div>
+
+
+                <div class="health-item">
+
+                    <div class="crop-symbol">
+                        🌾
+                    </div>
+
+                    <div class="crop-info">
+                        <strong>Wheat</strong>
+                        <small>Field B • 3 Acres</small>
+                    </div>
+
+                    <div class="health-status good">
+                        Healthy
+                    </div>
+
+                </div>
+
+
+                <div class="health-item">
+
+                    <div class="crop-symbol">
+                        🫘
+                    </div>
+
+                    <div class="crop-info">
+                        <strong>Soybean</strong>
+                        <small>Field C • 2 Acres</small>
+                    </div>
+
+                    <div class="health-status warning">
+                        Check Required
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- WEATHER -->
+            <div class="dashboard-card weather-card">
+
+                <div class="card-heading">
+
+                    <div>
+                        <h2>Weather Advisory</h2>
+                        <p>Today's farm weather</p>
+                    </div>
+
+                    <span>🌤️</span>
+
+                </div>
+
+
+                <div class="weather-main">
+
+                    <strong>28°C</strong>
+
+                    <div>
+                        <h3>Partly Cloudy</h3>
+                        <p>Good conditions for farming</p>
+                    </div>
+
+                </div>
+
+
+                <div class="weather-details">
+
+                    <div>
+                        💧
+                        <strong>65%</strong>
+                        <small>Humidity</small>
+                    </div>
+
+                    <div>
+                        💨
+                        <strong>12 km/h</strong>
+                        <small>Wind</small>
+                    </div>
+
+                    <div>
+                        🌧️
+                        <strong>20%</strong>
+                        <small>Rain Chance</small>
+                    </div>
+
+                </div>
+
+
+                <div class="advisory">
+                    💡 <strong>AI Advice:</strong>
+                    Irrigation can be done in the evening.
+                </div>
+
+            </div>
+
+
+            <!-- AI ASSISTANT -->
+            <div class="dashboard-card ai-card-dashboard">
+
+                <div class="ai-title">
+
+                    <div class="ai-logo">
+                        🤖
+                    </div>
+
+                    <div>
+                        <h2>AI Farming Assistant</h2>
+                        <p>Your smart farming companion</p>
+                    </div>
+
+                </div>
+
+
+                <p class="ai-message">
+                    Hello Farmer! How can I help you today?
+                </p>
+
+
+                <div class="ai-options">
+
+                    <button>🌱 Crop Advice</button>
+
+                    <button>🦠 Check Disease</button>
+
+                    <button>💧 Irrigation Advice</button>
+
+                    <button>🌾 Harvest Advice</button>
+
+                </div>
+
+
+                <div class="ai-input">
+
+                    <input
+                        type="text"
+                        placeholder="Ask something about your farm..."
+                    >
+
+                    <button>➤</button>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+            <div class="dashboard-card quick-actions">
+
+                <div class="card-heading">
+
+                    <div>
+                        <h2>Quick Actions</h2>
+                        <p>Manage your farm quickly</p>
+                    </div>
+
+                </div>
+
+
+                <div class="action-grid">
+
+                    <button>
+                        <span>🌱</span>
+                        Add Crop
+                    </button>
+
+                    <button>
+                        <span>🤖</span>
+                        Scan Crop
+                    </button>
+
+                    <button>
+                        <span>🧪</span>
+                        Soil Test
+                    </button>
+
+                    <button>
+                        <span>💰</span>
+                        Sell Crop
+                    </button>
+
+                    <button>
+                        <span>🚚</span>
+                        Track Order
+                    </button>
+
+                    <button>
+                        <span>💳</span>
+                        Payments
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RECENT ORDERS -->
+        <section class="dashboard-card orders-card">
+
+            <div class="card-heading">
+
+                <div>
+                    <h2>Recent Orders</h2>
+                    <p>Your latest crop sales</p>
+                </div>
+
+                <button>View All Orders</button>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Crop</th>
+                            <th>Company</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>#AGR1001</td>
+                            <td>🍅 Tomato</td>
+                            <td>Green Fresh Foods</td>
+                            <td>500 KG</td>
+                            <td>₹18,000</td>
+                            <td>
+                                <span class="order-status transit">
+                                    In Transit
+                                </span>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>#AGR1002</td>
+                            <td>🌾 Wheat</td>
+                            <td>Nature Grain Ltd.</td>
+                            <td>800 KG</td>
+                            <td>₹28,000</td>
+                            <td>
+                                <span class="order-status completed">
+                                    Completed
+                                </span>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>#AGR1003</td>
+                            <td>🫘 Soybean</td>
+                            <td>Agro Foods Pvt. Ltd.</td>
+                            <td>400 KG</td>
+                            <td>₹22,000</td>
+                            <td>
+                                <span class="order-status pending">
+                                    Pending
+                                </span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script type="module" src="dashboard.js"></script>
+<script type="module">
+  import { auth } from "./company/firebase.js";
+  import {
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.replace("login.html");
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transport | AgriConnect AI</title>
+    <link rel="stylesheet" href="company.css">
+    
+<style>
+body {
+    margin: 0;
+    padding: 30px 20px;
+    background: #f7fbf7;
+    color: #173d2b;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: #176b38;
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+body > p {
+    text-align: center;
+    color: #53665a;
+    font-size: 17px;
+}
+
+h2 {
+    color: #176b38;
+    margin-top: 25px;
+}
+
+body > p,
+body > h2,
+body > label,
+body > a {
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body > p,
+body > label {
+    display: block;
+    margin-bottom: 22px;
+}
+
+select, input {
+    padding: 10px;
+    border: 1px solid #b8d5bf;
+    border-radius: 8px;
+}
+
+button {
+    background: #237a43;
+    color: white;
+    padding: 11px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #17552e;
+}
+
+a {
+    color: #237a43;
+    display: inline-block;
+    margin-top: 20px;
+}
+</style>
+
+    <script type="module">
+    import { auth } from "./firebase.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            window.location.href = "login.html";
+        }
+    });
+</script>
+</head>
+<body>
+
+    <div class="page-content">
+        <h1>🚚 Transport Management</h1>
+        <p>Manage crop pickup and delivery details.</p>
+
+        <div class="order-card">
+            <h2>Order #AGR1001</h2>
+            <p>🌾 Crop: Tomato</p>
+            <p>📦 Quantity: 500 KG</p>
+            <p>📍 Pickup Location: Nagpur</p>
+            <p>🏢 Delivery Location: Mumbai</p>
+            <p>🚛 Transport: Truck</p>
+
+           
+<label for="status1">Delivery Status:</label>
+
+<select id="status1">
+    <option value="Pending">Pending</option>
+    <option value="Picked Up">Picked Up</option>
+    <option value="In Transit">In Transit</option>
+    <option value="Delivered">Delivered</option>
+</select>
+
+<div class="delivery-tracker">
+    <p><strong>Current Status:</strong></p>
+    <span id="currentStatus" class="status-badge pending">
+        Pending
+    </span>
+    <p id="message" aria-live="polite">
+        Delivery is waiting for pickup.
+    </p>
+</div>
+
+<button type="button" onclick="updateStatus()">
+    Update Delivery Status
+</button>
+
+        </div>
+
+        <a href="dashboard.html">← Return to Dashboard</a>
+    </div>
+
+   
+<script>
+function updateStatus() {
+    const status = document.getElementById("status1").value;
+    const badge = document.getElementById("currentStatus");
+    const message = document.getElementById("message");
+
+    badge.textContent = status;
+    badge.className = "status-badge";
+
+    if (status === "Pending") {
+        badge.classList.add("pending");
+        message.textContent = "Delivery is waiting for pickup.";
+    } else if (status === "Picked Up") {
+        badge.classList.add("picked-up");
+        message.textContent = "The crop has been picked up.";
+    } else if (status === "In Transit") {
+        badge.classList.add("in-transit");
+        message.textContent = "The crop is on its way to the destination.";
+    } else if (status === "Delivered") {
+        badge.classList.add("delivered");
+        message.textContent = "The crop has been delivered successfully.";
+    }
+}
+</script>
+
+
+</body>
+</html>

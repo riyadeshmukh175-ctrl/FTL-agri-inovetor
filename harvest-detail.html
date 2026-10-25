@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvest Details | AgriConnect AI</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .detail-card {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 18px #00000015;
+            line-height: 1.8;
+        }
+
+        .detail-card h2,
+        .detail-card h3 {
+            color: #236b3b;
+        }
+
+        .detail-card li {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 700px) {
+            .detail-card {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        <div class="logo-icon">🌿</div>
+        <div>
+            <h2>AgriConnect <span>AI</span></h2>
+            <small>From Seed to Sale</small>
+        </div>
+    </div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="harvest.html">Harvest</a>
+    </nav>
+</header>
+
+<section class="process">
+    <div class="detail-card">
+        <h2 id="title">Harvest Information</h2>
+        <p id="intro"></p>
+
+        <h3>📌 Important Points</h3>
+        <ul id="points"></ul>
+
+        <h3>📝 Steps to Follow</h3>
+        <ol id="steps"></ol>
+
+        <h3>🌾 Farmer's Tip</h3>
+        <p id="tip"></p>
+
+        <a href="harvest.html" class="primary-btn">
+            ← Back to Harvest
+        </a>
+    </div>
+</section>
+
+<script>
+const harvestTopics = {
+    "Plant Growth Monitoring": [
+        "🌱 Plant Growth Monitoring",
+        "Regular crop observations help farmers understand whether plants are developing as expected.",
+        ["Observe plant height and leaf development.", "Look for uneven growth across the field.", "Record important growth stages.", "Check soil moisture and crop condition."],
+        ["Record the crop variety and sowing date.", "Inspect representative plants regularly.", "Note unusual growth or symptoms.", "Seek agricultural advice if growth is poor."],
+        "Compare plants at the same growth stage and record changes over time."
+    ],
+
+    "Leaf and Stem Inspection": [
+        "🍃 Leaf and Stem Inspection",
+        "Inspecting leaves and stems can help identify visible signs of pests, disease or environmental stress.",
+        ["Look for spots, holes and discolouration.", "Check stems for damage or wilting.", "Inspect both sides of leaves.", "Observe whether symptoms are spreading."],
+        ["Inspect plants in different areas of the field.", "Record the symptoms and take clear photos.", "Check moisture and recent weather conditions.", "Ask an expert to identify uncertain problems."],
+        "Similar symptoms may have different causes, so avoid guessing a treatment."
+    ],
+
+    "Pest Monitoring": [
+        "🐛 Pest Monitoring",
+        "Pest monitoring helps identify insects and assess whether they are damaging the crop.",
+        ["Check leaves, stems and developing produce.", "Look for eggs, insects and feeding damage.", "Record how widely the damage is spread.", "Protect beneficial insects where possible."],
+        ["Inspect the crop regularly.", "Identify the insect if possible.", "Assess the level of crop damage.", "Follow locally recommended pest management."],
+        "An insect's presence alone does not always mean pesticide treatment is necessary."
+    ],
+
+    "Crop Health": [
+        "🦠 Crop Health",
+        "Crop health depends on suitable growing conditions, nutrients, water and protection from pests and diseases.",
+        ["Observe leaf colour and plant vigour.", "Check for wilting and unusual spots.", "Monitor soil moisture.", "Record recurring crop problems."],
+        ["Inspect plants regularly.", "Identify visible symptoms.", "Check possible causes.", "Use suitable corrective measures based on reliable advice."],
+        "Early observation can help farmers respond before a problem spreads."
+    ],
+
+    "Crop Maturity": [
+        "📅 Crop Maturity",
+        "Crop maturity is the stage when produce has developed sufficiently for its intended harvest and use.",
+        ["Maturity signs differ between crops.", "Grains may change colour and moisture.", "Fruits may change size, colour or firmness.", "Market requirements can affect the harvest stage."],
+        ["Identify the crop and variety.", "Learn its recommended maturity signs.", "Inspect samples from the field.", "Confirm readiness before harvesting."],
+        "Do not use one maturity rule for every crop."
+    ],
+
+    "Harvest Indicators": [
+        "🌾 Harvest Indicators",
+        "Harvest indicators help farmers determine when crops are ready to be collected.",
+        ["Check the crop's expected growing period.", "Observe colour and texture changes.", "Check grain or fruit development.", "Consider intended use and buyer requirements."],
+        ["Review local crop guidance.", "Inspect several representative plants.", "Check weather and field conditions.", "Plan harvest when maturity is suitable."],
+        "Follow crop-specific guidance because harvest indicators vary widely."
+    ],
+
+    "Weather Conditions": [
+        "🌦️ Harvest Weather",
+        "Weather can affect harvesting, drying, quality and transportation.",
+        ["Check the weather forecast before harvesting.", "Rain may delay field operations.", "High humidity can affect drying and storage.", "Prepare a safe alternative if weather changes."],
+        ["Review the local forecast.", "Inspect field access and crop condition.", "Arrange labour and equipment.", "Protect harvested produce from unexpected rain."],
+        "Avoid leaving harvested produce exposed to rain or ground moisture."
+    ],
+
+    "Harvest Planning": [
+        "📝 Harvest Planning",
+        "Harvest planning coordinates labour, equipment, transport and storage so produce can be collected efficiently.",
+        ["Estimate the area ready for harvest.", "Arrange suitable equipment.", "Plan labour and transport.", "Prepare storage before harvesting begins."],
+        ["Confirm crop maturity.", "Choose a suitable harvest period.", "Arrange workers and tools.", "Coordinate transport and storage."],
+        "Prepare storage and transport in advance to reduce delays after harvest."
+    ],
+
+    "Yield Estimation": [
+        "📊 Yield Estimation",
+        "Yield estimation provides an approximate idea of the quantity a field may produce.",
+        ["Yield varies with crop variety and field conditions.", "Use representative samples.", "Consider healthy and damaged crop areas.", "Treat estimates as approximate, not guaranteed."],
+        ["Measure the cultivated area.", "Sample representative parts of the field.", "Estimate production using an appropriate crop method.", "Record the estimate and compare it with actual harvest."],
+        "Use a method suited to the specific crop for more reliable estimates."
+    ],
+
+    "Field Sampling": [
+        "🌾 Field Sampling",
+        "Field sampling helps estimate crop condition and potential production using a small, representative part of the field.",
+        ["Sample different areas of the field.", "Avoid selecting only the best-looking plants.", "Record the sample area or plant count.", "Repeat samples when field conditions vary."],
+        ["Divide the field into representative areas.", "Select sample locations fairly.", "Count or measure the crop using a suitable method.", "Use the results to estimate the wider field."],
+        "A few carefully selected samples are more useful than choosing only unusually good plants."
+    ],
+
+    "Production Records": [
+        "📒 Production Records",
+        "Production records help farmers compare harvests, expenses and crop performance between seasons.",
+        ["Record crop variety and cultivated area.", "Note sowing and harvest dates.", "Record harvested quantities.", "Keep sale and expense information."],
+        ["Create a record for each crop season.", "Enter field and harvest details.", "Record the quantity sold and retained.", "Compare results to plan future crops."],
+        "Keep records regularly so important details are not forgotten."
+    ],
+
+    "Harvest Labour Planning": [
+        "👩‍🌾 Harvest Labour Planning",
+        "Labour planning helps ensure enough workers are available when crops reach maturity.",
+        ["Estimate the work to be completed.", "Arrange workers in advance.", "Provide suitable tools and protective equipment.", "Plan safe breaks and working conditions."],
+        ["Estimate the harvest area and schedule.", "Arrange workers and equipment.", "Explain safe handling practices.", "Coordinate collection and transport."],
+        "Harvest planning should consider worker safety and local labour requirements."
+    ],
+
+    "Cleaning and Sorting": [
+        "📦 Cleaning and Sorting",
+        "Cleaning and sorting help separate unwanted material and classify produce by quality.",
+        ["Remove soil, stones and unwanted debris where appropriate.", "Separate damaged produce.", "Use clean equipment and surfaces.", "Follow crop-specific handling guidance."],
+        ["Prepare a clean sorting area.", "Handle produce carefully.", "Separate produce according to condition and quality.", "Pack it in suitable containers."],
+        "Some crops require special cleaning or should remain dry, so follow crop-specific guidance."
+    ],
+
+    "Drying and Moisture": [
+        "☀️ Drying and Moisture",
+        "Suitable moisture management is important for the quality and safe storage of many harvested crops, especially grains.",
+        ["Required moisture levels depend on the crop.", "Drying methods differ by produce type.", "Protect produce from rain and ground moisture.", "Avoid contamination during drying."],
+        ["Identify the crop's safe moisture requirement.", "Use a suitable drying method.", "Protect produce from weather and dirt.", "Check moisture before storage when appropriate."],
+        "Use crop-specific moisture recommendations; do not assume every crop has the same requirement."
+    ],
+
+    "Storage Hygiene": [
+        "🏠 Storage Hygiene",
+        "A clean, suitable storage area helps reduce contamination, pests and post-harvest losses.",
+        ["Clean the storage area before use.", "Check for leaks and unwanted moisture.", "Inspect for pests.", "Use containers suitable for the crop."],
+        ["Remove old debris and clean the area.", "Inspect the roof, floor and ventilation.", "Store produce under suitable conditions.", "Inspect stored produce regularly."],
+        "Storage conditions must match the produce; fresh vegetables and dry grains have different needs."
+    ],
+
+    "Transport Preparation": [
+        "🚚 Transport Preparation",
+        "Careful transport preparation can reduce damage and delays when moving harvested produce to a buyer or storage facility.",
+        ["Choose clean, suitable containers.", "Avoid overloading containers.", "Protect produce from rain and excessive heat.", "Coordinate pickup time and destination."],
+        ["Estimate the quantity to transport.", "Arrange a suitable vehicle.", "Pack produce according to its needs.", "Confirm the delivery location and timing."],
+        "Fragile and perishable produce may require extra care and faster delivery."
+    ]
+};
+
+const topic = new URLSearchParams(window.location.search).get("topic");
+const data = harvestTopics[topic];
+
+if (data) {
+    document.getElementById("title").textContent = data[0];
+    document.getElementById("intro").textContent = data[1];
+    document.getElementById("tip").textContent = data[4];
+
+    data[2].forEach(text => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        document.getElementById("points").appendChild(li);
+    });
+
+    data[3].forEach(text => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        document.getElementById("steps").appendChild(li);
+    });
+} else {
+    document.getElementById("title").textContent = "Harvest Information";
+    document.getElementById("intro").textContent =
+        "Select a harvest sub-option from the Harvest Management page.";
+    document.getElementById("tip").textContent =
+        "Choose a crop-specific harvest method suitable for your region.";
+}
+</script>
+
+</body>
+</html>

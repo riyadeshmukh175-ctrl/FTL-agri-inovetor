@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvest | AgriConnect AI</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+#harvestOptions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 25px;
+}
+
+#harvestOptions .primary-btn {
+    width: 100%;
+    min-height: 65px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #287a43, #17552e);
+    color: #ffffff;
+    border: 1px solid #d6eadb;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(23, 85, 46, 0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#harvestOptions .primary-btn:hover {
+    background: linear-gradient(135deg, #359653, #206b39);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(23, 85, 46, 0.22);
+}
+
+#harvestOptions .primary-btn:active {
+    transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+    #harvestOptions {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        <div class="logo-icon">🌿</div>
+        <div>
+            <h2>AgriConnect <span>AI</span></h2>
+            <small>From Seed to Sale</small>
+        </div>
+    </div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="index.html#process">How It Works</a>
+    </nav>
+</header>
+
+<section class="process">
+    <div class="section-title">
+        <h2>🌾 Harvest Management</h2>
+        <p>Monitor crop growth and prepare for harvesting</p>
+    </div>
+
+    
+<div class="feature-grid">
+
+    <div class="feature" onclick="showHarvestDetails('growth')">
+        <span>🌱</span>
+        <div>
+            <h3>Crop Growth</h3>
+            <p>Monitor crop growth regularly and check plant health.</p>
+        </div>
+    </div>
+
+    <div class="feature" onclick="showHarvestDetails('time')">
+        <span>📅</span>
+        <div>
+            <h3>Harvest Time</h3>
+            <p>Estimate the right time to harvest your crops.</p>
+        </div>
+    </div>
+
+    <div class="feature" onclick="showHarvestDetails('yield')">
+        <span>🌾</span>
+        <div>
+            <h3>Crop Yield</h3>
+            <p>Estimate how much produce your farm may yield.</p>
+        </div>
+    </div>
+
+    <div class="feature" onclick="showHarvestDetails('storage')">
+        <span>📦</span>
+        <div>
+            <h3>Storage Preparation</h3>
+            <p>Prepare suitable storage and transport for harvested crops.</p>
+        </div>
+    </div>
+
+</div>
+
+<div id="harvestDetails" class="feature"
+     style="display:none; margin-top:25px; background:white;">
+
+    <h2 id="harvestTitle"></h2>
+    <p id="harvestText"></p>
+
+    <button class="primary-btn" onclick="closeHarvestDetails()">
+        Close
+    </button>
+</div>
+    <div style="text-align:center; margin-top:40px;">
+        <a href="index.html#process" class="primary-btn">
+            ← Back to How It Works
+        </a>
+    </div>
+</section>
+
+<script>
+function showHarvestDetails(type) {
+    const information = {
+        growth: {
+            title: "🌱 Crop Growth",
+            text: "Monitor crop development and prepare for a healthy harvest.",
+            options: [
+                "Plant Growth Monitoring",
+                "Leaf and Stem Inspection",
+                "Pest Monitoring",
+                "Crop Health"
+            ]
+        },
+
+        time: {
+            title: "📅 Harvest Time",
+            text: "Identify crop maturity and choose a suitable harvest period.",
+            options: [
+                "Crop Maturity",
+                "Harvest Indicators",
+                "Weather Conditions",
+                "Harvest Planning"
+            ]
+        },
+
+        yield: {
+            title: "🌾 Crop Yield",
+            text: "Estimate production and plan harvesting resources.",
+            options: [
+                "Yield Estimation",
+                "Field Sampling",
+                "Production Records",
+                "Harvest Labour Planning"
+            ]
+        },
+
+        storage: {
+            title: "📦 Storage Preparation",
+            text: "Prepare harvested produce for safe storage and transportation.",
+            options: [
+                "Cleaning and Sorting",
+                "Drying and Moisture",
+                "Storage Hygiene",
+                "Transport Preparation"
+            ]
+        }
+    };
+
+    const item = information[type];
+
+    document.getElementById("harvestTitle").textContent = item.title;
+    document.getElementById("harvestText").textContent = item.text;
+
+    const details = document.getElementById("harvestDetails");
+    let optionBox = document.getElementById("harvestOptions");
+
+    if (!optionBox) {
+        optionBox = document.createElement("div");
+        optionBox.id = "harvestOptions";
+        document.getElementById("harvestText").after(optionBox);
+    }
+
+    optionBox.innerHTML = "";
+
+    item.options.forEach(option => {
+        const button = document.createElement("button");
+        button.className = "primary-btn";
+        button.style.margin = "8px";
+        button.textContent = option;
+
+        button.onclick = function () {
+            window.location.href =
+                "harvest-detail.html?topic=" +
+                encodeURIComponent(option);
+        };
+
+        optionBox.appendChild(button);
+    });
+
+    details.style.display = "block";
+    details.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+
+function closeHarvestDetails() {
+    document.getElementById("harvestDetails").style.display = "none";
+}
+</script>
+</body>
+</html>

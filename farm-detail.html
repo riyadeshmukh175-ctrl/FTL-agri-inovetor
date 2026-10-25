@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Details | AgriConnect AI</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .farm-detail-card {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 18px #00000015;
+            line-height: 1.8;
+        }
+
+        .farm-detail-card h2,
+        .farm-detail-card h3 {
+            color: #236b3b;
+        }
+
+        .farm-detail-card li {
+            margin-bottom: 10px;
+        }
+
+        .farm-detail-card .primary-btn {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+
+        @media (max-width: 700px) {
+            .farm-detail-card {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        <div class="logo-icon">🌿</div>
+        <div>
+            <h2>AgriConnect <span>AI</span></h2>
+            <small>From Seed to Sale</small>
+        </div>
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="farm.html">Farm</a>
+    </nav>
+</header>
+
+<section class="process">
+    <div class="farm-detail-card">
+        <h2 id="title">Farm Management</h2>
+        <p id="intro"></p>
+
+        <h3>📌 Important Points</h3>
+        <ul id="points"></ul>
+
+        <h3>📝 Steps to Follow</h3>
+        <ol id="steps"></ol>
+
+        <h3>🌱 Farmer's Tip</h3>
+        <p id="tip"></p>
+
+        <a href="farm.html" class="primary-btn">
+            ← Back to Smart Farming
+        </a>
+    </div>
+</section>
+
+<script>
+const farmTopics = {
+    "Soil Testing": {
+        title: "🧪 Soil Testing",
+        intro: "Soil testing helps farmers understand the nutrient status and properties of their soil before choosing fertilizer.",
+        points: [
+            "Soil testing can identify nutrient deficiencies.",
+            "Soil pH affects the availability of nutrients to plants.",
+            "Testing helps avoid unnecessary fertilizer use.",
+            "Different parts of a field may have different soil conditions."
+        ],
+        steps: [
+            "Collect representative soil samples using local testing guidance.",
+            "Avoid mixing visibly different soil areas in one sample.",
+            "Send the sample to a suitable soil testing laboratory.",
+            "Review the report and recommended nutrient application.",
+            "Keep the report for future crop planning."
+        ],
+        tip: "Follow the sampling instructions of your soil testing laboratory for reliable results."
+    },
+
+    "Soil pH": {
+        title: "🌡️ Soil pH",
+        intro: "Soil pH indicates whether soil is acidic, neutral or alkaline. It can influence how easily plants access nutrients.",
+        points: [
+            "Soil pH requirements vary by crop.",
+            "Very acidic or alkaline soil may restrict nutrient availability.",
+            "A soil test is more reliable than judging pH by appearance.",
+            "Soil amendments should be selected based on test results."
+        ],
+        steps: [
+            "Collect a representative soil sample.",
+            "Request pH measurement through a soil test.",
+            "Compare the result with the crop's recommended range.",
+            "Ask an agricultural expert about suitable corrections, if needed."
+        ],
+        tip: "Do not add lime or other pH-changing materials without appropriate advice."
+    },
+
+    "Soil Nutrients": {
+        title: "🌿 Soil Nutrients",
+        intro: "Plants need nutrients for root growth, leaves, flowering and crop production. The required quantities depend on the crop and soil.",
+        points: [
+            "Nitrogen supports leafy growth.",
+            "Phosphorus is important for roots and plant development.",
+            "Potassium supports several plant functions and crop quality.",
+            "Other nutrients may also be needed in small amounts."
+        ],
+        steps: [
+            "Review your soil test results.",
+            "Identify nutrients that may be deficient.",
+            "Choose suitable fertilizer based on crop recommendations.",
+            "Apply the recommended amount at the appropriate growth stage.",
+            "Monitor crop growth for unusual symptoms."
+        ],
+        tip: "Yellow leaves can have several causes, so test and diagnose before applying nutrients."
+    },
+
+    "Soil Preparation": {
+        title: "🚜 Soil Preparation",
+        intro: "Proper soil preparation creates suitable conditions for seed germination and root development.",
+        points: [
+            "Check soil moisture before tillage.",
+            "Remove problematic weeds and crop residues where appropriate.",
+            "Maintain suitable soil structure.",
+            "Plan drainage and field levelling when needed."
+        ],
+        steps: [
+            "Inspect the field and its drainage.",
+            "Prepare the soil according to the selected crop.",
+            "Incorporate suitable organic matter if recommended.",
+            "Level or shape the field as needed.",
+            "Prepare the seedbed before sowing."
+        ],
+        tip: "Avoid working soil when it is excessively wet, as this can damage soil structure."
+    },
+
+    "Drip Irrigation": {
+        title: "💧 Drip Irrigation",
+        intro: "Drip irrigation delivers water near plant roots through pipes and emitters. It can improve water-use efficiency when designed and maintained correctly.",
+        points: [
+            "Water is delivered close to the root zone.",
+            "Filters help reduce emitter blockage.",
+            "System design depends on crop spacing and water supply.",
+            "Leaks and blocked emitters can cause uneven watering."
+        ],
+        steps: [
+            "Assess the field, crop and available water source.",
+            "Choose a suitable drip system design.",
+            "Install filters, pipes and emitters correctly.",
+            "Check water distribution and clean filters as required.",
+            "Adjust irrigation according to crop needs and soil moisture."
+        ],
+        tip: "Inspect the system regularly and follow the manufacturer's maintenance instructions."
+    },
+
+    "Sprinkler Irrigation": {
+        title: "🚿 Sprinkler Irrigation",
+        intro: "Sprinkler systems distribute water through nozzles, simulating rainfall. Their performance depends on pressure, wind and system design.",
+        points: [
+            "Select sprinklers suitable for the crop and field.",
+            "Check water pressure and coverage.",
+            "Strong wind can cause uneven distribution.",
+            "Avoid unnecessary watering that keeps foliage wet for long periods."
+        ],
+        steps: [
+            "Check water availability and field layout.",
+            "Select suitable pipes and sprinkler heads.",
+            "Set up the system according to the design.",
+            "Check that water reaches the field evenly.",
+            "Schedule watering based on crop and soil needs."
+        ],
+        tip: "Water early enough to suit local conditions and reduce avoidable evaporation."
+    },
+
+    "Soil Moisture": {
+        title: "💧 Soil Moisture Monitoring",
+        intro: "Monitoring soil moisture helps farmers decide when irrigation is needed rather than watering only by habit.",
+        points: [
+            "Moisture needs differ by crop and growth stage.",
+            "Soil type affects how much water it holds.",
+            "Sensors can help monitor moisture at selected depths.",
+            "Overwatering may waste water and harm roots."
+        ],
+        steps: [
+            "Identify the crop's water requirements.",
+            "Check soil moisture manually or with a suitable sensor.",
+            "Observe the crop and recent weather conditions.",
+            "Irrigate when the crop and soil indicate a need.",
+            "Check the result after watering."
+        ],
+        tip: "A moisture sensor must be placed and maintained correctly to provide useful readings."
+    },
+
+    "Water Scheduling": {
+        title: "🗓️ Water Scheduling",
+        intro: "An irrigation schedule plans when and how much to water based on crop stage, soil moisture and weather.",
+        points: [
+            "Young plants and mature crops may have different needs.",
+            "Rainfall may reduce the need for irrigation.",
+            "Soil type affects irrigation frequency.",
+            "Excess irrigation can cause nutrient loss and waterlogging."
+        ],
+        steps: [
+            "Identify the crop and its current growth stage.",
+            "Assess soil moisture and recent rainfall.",
+            "Check local weather forecasts.",
+            "Plan irrigation using local crop recommendations.",
+            "Adjust the schedule as conditions change."
+        ],
+        tip: "Treat schedules as a guide and adjust them to actual field conditions."
+    },
+
+    "Organic Fertilizer": {
+        title: "🍃 Organic Fertilizer",
+        intro: "Organic nutrient sources include well-decomposed manure and compost. Their nutrient content can vary.",
+        points: [
+            "Organic materials can add organic matter to soil.",
+            "Nutrient release may be slower than with some mineral fertilizers.",
+            "Use properly prepared materials.",
+            "Nutrient needs should still be assessed for the crop."
+        ],
+        steps: [
+            "Choose a suitable, well-prepared organic material.",
+            "Check its quality and maturity.",
+            "Determine the application amount with local guidance.",
+            "Apply it using an appropriate method.",
+            "Monitor soil and crop response."
+        ],
+        tip: "Avoid using fresh or contaminated manure on food crops without following safe handling guidance."
+    },
+
+    "NPK Fertilizer": {
+        title: "🧪 NPK Fertilizer",
+        intro: "NPK fertilizers provide nitrogen, phosphorus and potassium in specified proportions. The correct product depends on crop needs and soil conditions.",
+        points: [
+            "Read the nutrient percentages on the label.",
+            "Different crops need different nutrient combinations.",
+            "Excess fertilizer can damage plants or pollute water.",
+            "Soil-test results help guide fertilizer choices."
+        ],
+        steps: [
+            "Check the soil test and crop recommendations.",
+            "Select a suitable labelled fertilizer.",
+            "Calculate the recommended amount for the field area.",
+            "Apply it using the advised method and timing.",
+            "Store the product safely after use."
+        ],
+        tip: "Never guess the fertilizer dose; follow the label and local agricultural recommendations."
+    },
+
+    "Compost": {
+        title: "🌱 Compost Management",
+        intro: "Compost is made by controlled decomposition of suitable organic materials. Mature compost can improve soil organic matter.",
+        points: [
+            "Use suitable plant residues and other permitted materials.",
+            "Maintain appropriate moisture and aeration during composting.",
+            "Allow the material to mature properly.",
+            "Keep unsuitable waste and contaminants out."
+        ],
+        steps: [
+            "Choose a suitable composting location.",
+            "Mix appropriate organic materials.",
+            "Maintain moisture and aeration.",
+            "Allow the compost to decompose and mature.",
+            "Use the finished material according to crop needs."
+        ],
+        tip: "Unfinished compost may affect plant growth; check maturity before applying it."
+    },
+
+    "Fertilizer Application": {
+        title: "🌿 Fertilizer Application",
+        intro: "Correct fertilizer timing, quantity and placement help crops use nutrients efficiently.",
+        points: [
+            "Base fertilizer decisions on crop needs and soil results.",
+            "Follow the product label.",
+            "Keep fertilizer away from direct contact with seeds or stems when required.",
+            "Avoid application immediately before heavy rain when runoff is likely."
+        ],
+        steps: [
+            "Identify the crop and its growth stage.",
+            "Confirm the recommended fertilizer and dose.",
+            "Use appropriate protective equipment and application tools.",
+            "Apply uniformly using the recommended method.",
+            "Store leftover fertilizer safely."
+        ],
+        tip: "Do not increase the dose to speed up growth; excessive fertilizer can harm crops."
+    },
+
+    "Disease Detection": {
+        title: "🦠 Crop Disease Detection",
+        intro: "Regular crop inspection can help identify possible disease symptoms early. Similar symptoms may have different causes.",
+        points: [
+            "Look for leaf spots, wilting, unusual growth or discolouration.",
+            "Check whether symptoms affect one plant or many plants.",
+            "Observe recent weather and field conditions.",
+            "Avoid selecting a treatment based on appearance alone."
+        ],
+        steps: [
+            "Inspect leaves, stems, roots and fruits where appropriate.",
+            "Record when symptoms started and how they spread.",
+            "Take clear photos and seek expert identification.",
+            "Use only a recommended treatment when necessary.",
+            "Follow the product label and safety instructions."
+        ],
+        tip: "For uncertain or spreading symptoms, consult a local agriculture expert before treatment."
+    },
+
+    "Pest Monitoring": {
+        title: "🐛 Pest Monitoring",
+        intro: "Pest monitoring helps farmers detect insects and assess whether they are causing meaningful crop damage.",
+        points: [
+            "Inspect both sides of leaves.",
+            "Look for insects, eggs, holes and other damage.",
+            "Check several areas of the field.",
+            "Protect beneficial insects wherever possible."
+        ],
+        steps: [
+            "Inspect the crop at regular intervals.",
+            "Record the pest and the level of damage.",
+            "Seek help identifying unfamiliar pests.",
+            "Consider suitable preventive and non-chemical measures.",
+            "Use pesticides only when recommended and according to the label."
+        ],
+        tip: "Finding an insect does not always mean pesticide treatment is necessary."
+    },
+
+    "Yellow Leaves": {
+        title: "🍂 Yellow Leaves",
+        intro: "Yellow leaves may result from nutrient deficiency, excess water, drought, pests, diseases or natural ageing.",
+        points: [
+            "Notice whether old or new leaves turn yellow first.",
+            "Check soil moisture and drainage.",
+            "Look for spots, insects or root problems.",
+            "Avoid assuming that every yellow leaf indicates a nitrogen deficiency."
+        ],
+        steps: [
+            "Observe the pattern and extent of yellowing.",
+            "Check recent watering and weather.",
+            "Inspect leaves and roots where possible.",
+            "Use soil testing or expert diagnosis when needed.",
+            "Apply corrective measures only after identifying a likely cause."
+        ],
+        tip: "Take photos over several days to track whether the symptoms are spreading."
+    },
+
+    "Plant Growth": {
+        title: "🌱 Plant Growth Monitoring",
+        intro: "Monitoring crop growth helps farmers understand whether plants are developing as expected.",
+        points: [
+            "Observe plant height and leaf development.",
+            "Check for uneven growth across the field.",
+            "Record flowering and fruiting stages where relevant.",
+            "Compare observations with the expected growth of the crop."
+        ],
+        steps: [
+            "Record the crop variety and sowing date.",
+            "Inspect representative areas regularly.",
+            "Check moisture, weeds, pests and nutrient conditions.",
+            "Record important growth stages.",
+            "Seek advice if growth is unusually poor."
+        ],
+        tip: "Compare plants of the same variety and growth stage for more meaningful observations."
+    }
+};
+
+const topic = new URLSearchParams(location.search).get("topic");
+const data = farmTopics[topic];
+
+if (data) {
+    document.getElementById("title").textContent = data.title;
+    document.getElementById("intro").textContent = data.intro;
+    document.getElementById("tip").textContent = data.tip;
+
+    data.points.forEach(text => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        document.getElementById("points").appendChild(li);
+    });
+
+    data.steps.forEach(text => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        document.getElementById("steps").appendChild(li);
+    });
+} else {
+    document.getElementById("title").textContent = "Farm Information";
+    document.getElementById("intro").textContent =
+        "Information for this option is not available yet.";
+    document.getElementById("tip").textContent =
+        "Return to Smart Farming and select one of the available options.";
+}
+</script>
+
+</body>
+</html>

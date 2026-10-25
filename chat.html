@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriConnect AI - Chatboard</title>
+  <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <a href="index.html" class="brand">🌿 AgriConnect AI</a>
+    <a href="index.html" class="back-link">← Home</a>
+  </header>
+
+  <main class="chat-container">
+    <aside class="sidebar">
+      <h2>Chatboard</h2>
+
+      <button class="tab active" data-panel="ai">
+        🤖 AI Farming Assistant
+      </button>
+
+      <button class="tab" data-panel="buyer">
+        🏢 Farmer–Company Chat
+      </button>
+
+      <p class="sidebar-note">
+        Ask farming questions or connect with crop buyers.
+      </p>
+    </aside>
+
+    <section class="chat-panel">
+      <div class="chat-heading">
+        <div class="avatar" id="chatAvatar">🤖</div>
+        <div>
+          <h2 id="chatTitle">AI Farming Assistant</h2>
+          <p id="chatSubtitle">Ask your farming questions</p>
+        </div>
+      </div>
+
+      <div class="messages" id="messages" aria-live="polite">
+        <div class="message received">
+          Hello! 🌱 I am your farming assistant.
+          Ask me about crops, irrigation or fertilizers.
+        </div>
+      </div>
+
+      <form id="chatForm" class="message-form">
+        <input
+          type="text"
+          id="messageInput"
+          placeholder="Type your message..."
+          autocomplete="off"
+          required
+        >
+        <button type="submit" id="sendButton">Send ➤</button>
+      </form>
+
+      <p class="notice" id="chatNotice">
+        AI assistant demo mode
+      </p>
+    </section>
+  </main>
+
+  <script type="module" src="chat.js"></script>
+</body>
+</html>

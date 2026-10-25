@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+    <title>Farmer Registration | AgriConnect AI</title>
+    <link rel="stylesheet" href="farmer.css">
+</head>
+
+<body>
+
+<div class="registration-page">
+
+    <div class="registration-card">
+
+        <a href="../index.html" class="home-link">
+            ← Back to Home
+        </a>
+
+        <div class="registration-header">
+            <div class="farmer-icon">👨‍🌾</div>
+
+            <h1 id="registrationTitle">Create Your Account</h1>
+<p>Join AgriConnect AI</p>
+
+<label for="userRole">Register As</label>
+<select id="userRole" required>
+    <option value="farmer">👨‍🌾 Farmer</option>
+    <option value="customer">🛒 Customer</option>
+</select>
+        </div>
+
+
+        <form id="registrationForm">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input
+                        type="tel"
+                        placeholder="Enter mobile number"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter email address"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Village</label>
+                    <input
+                        type="text"
+                        placeholder="Enter village name"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>District</label>
+                    <input
+                        type="text"
+                        placeholder="Enter district"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>State</label>
+
+                    <select required>
+                        <option value="">Select State</option>
+                        <option>Maharashtra</option>
+                        <option>Madhya Pradesh</option>
+                        <option>Gujarat</option>
+                        <option>Rajasthan</option>
+                        <option>Karnataka</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Farm Area</label>
+                    <input
+                        type="number"
+                        placeholder="Enter area in acres"
+                        min="0"
+                        step="0.1"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Main Crop</label>
+
+                    <select required>
+                        <option value="">Select Crop</option>
+                        <option>Wheat</option>
+                        <option>Rice</option>
+                        <option>Soybean</option>
+                        <option>Cotton</option>
+                        <option>Tomato</option>
+                        <option>Onion</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group full">
+                    <label>Farm Location</label>
+
+                    <input
+                        type="text"
+                        placeholder="Enter your farm location"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Create password"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm password"
+                        required
+                    >
+                </div>
+
+            </div>
+
+
+            <label class="terms">
+                <input type="checkbox" required>
+                I agree to the Terms & Conditions and Privacy Policy.
+            </label>
+
+
+            <button type="submit" class="register-button">
+                Create Account →
+            </button>
+
+        </form>
+
+
+        <p class="login-text">
+            Already have an account?
+            <a href="login.html">Login here</a>
+        </p>
+
+    </div>
+
+</div>
+
+
+<script type="module">
+import { auth, db } from "./company/firebase.js";
+
+import {
+    createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+import {
+    doc, setDoc, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+const form = document.getElementById("registrationForm");
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+    const role = document.getElementById("userRole").value;
+
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    if (!["farmer", "customer"].includes(role)) {
+        alert("Please select a valid role.");
+        return;
+    }
+
+    try {
+        const result = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        const collectionName =
+            role === "farmer" ? "farmers" : "customers";
+
+        await setDoc(doc(db, collectionName, result.user.uid), {
+            name: name,
+            email: email,
+            role: role,
+            createdAt: serverTimestamp()
+        });
+
+        alert(
+            role === "farmer"
+                ? "Farmer account created successfully!"
+                : "Customer account created successfully!"
+        );
+
+        window.location.href = "login.html";
+
+    } catch (error) {
+        console.error("Registration error:", error);
+        alert("Registration failed: " + error.message);
+    }
+});
+</script>
+
+
+
+</body>
+</html>

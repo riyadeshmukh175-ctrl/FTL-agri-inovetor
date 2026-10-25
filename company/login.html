@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Login | AgriConnect AI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #edf5ee;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 5px 25px #00000015;
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #216b38;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #68756b;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 7px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccd8ce;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 13px;
+            border: none;
+            border-radius: 6px;
+            background: #218838;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #17652b;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #216b38;
+            text-decoration: none;
+        }
+
+        #message {
+            margin-top: 12px;
+            color: #b42318;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-box">
+        <div class="logo">🌱</div>
+
+        <h1>AgriConnect AI</h1>
+        <p class="subtitle">Company Portal Login</p>
+
+        <form id="loginForm">
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+            >
+
+            <button type="submit">Login</button>
+            <p id="message"></p>
+        </form>
+
+        <a class="back-link" href="../index.html">
+            ← Back to Home
+        </a>
+    </div>
+
+   
+<script type="module">
+import { auth } from "./firebase.js";
+import {
+    signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+const loginForm = document.getElementById("loginForm");
+const message = document.getElementById("message");
+
+loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    message.textContent = "";
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    try {
+        const userCredential = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        console.log("Logged-in company UID:", userCredential.user.uid);
+        console.log("Logged-in company email:", userCredential.user.email);
+
+        window.location.href = "dashboard.html";
+    } catch (error) {
+        console.error("Company login error:", error.code, error.message);
+        message.textContent = error.message;
+    }
+});
+</script>
+
+</body>
+</html>

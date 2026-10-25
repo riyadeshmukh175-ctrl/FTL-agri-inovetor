@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sell My Crop | AgriConnect AI</title>
+
+    <link rel="stylesheet" href="farmer.css">
+
+    <style>
+
+        .sell-page {
+            max-width: 1200px;
+            margin: auto;
+            padding: 35px;
+        }
+
+        .sell-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .sell-header h1 {
+            margin: 8px 0;
+            color: #173d2b;
+        }
+
+        .sell-header p {
+            color: #718078;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #159447;
+            font-weight: 600;
+        }
+
+        .sell-container {
+            display: grid;
+            grid-template-columns: 1.4fr 0.8fr;
+            gap: 25px;
+        }
+
+        .sell-card,
+        .ai-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+        }
+
+        .sell-card h2,
+        .ai-card h2 {
+            color: #173d2b;
+            margin-bottom: 8px;
+        }
+
+        .sell-card > p,
+        .ai-card > p {
+            color: #718078;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #294a3a;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #dce7df;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #159447;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            background: #159447;
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #107b3a;
+        }
+
+        .ai-box {
+            background: #eef9f0;
+            border: 1px solid #ccebd3;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .ai-box h3 {
+            color: #159447;
+            margin-bottom: 10px;
+        }
+
+        .ai-box p {
+            color: #587063;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 12px;
+            padding: 15px 0;
+            border-bottom: 1px solid #edf1ee;
+        }
+
+        .info-icon {
+            font-size: 25px;
+        }
+
+        .info-item strong {
+            display: block;
+            color: #294a3a;
+            margin-bottom: 4px;
+        }
+
+        .info-item span {
+            font-size: 13px;
+            color: #718078;
+        }
+
+        .success-message {
+            display: none;
+            margin-top: 20px;
+            padding: 18px;
+            background: #e7f8eb;
+            border: 1px solid #9ed9ab;
+            color: #176b35;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 850px) {
+
+            .sell-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sell-page {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .sell-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="sell-page">
+
+    <!-- HEADER -->
+
+    <header class="sell-header">
+
+        <div>
+
+            <a href="my-crops.html" class="back-link">
+                ← Back to My Crops
+            </a>
+
+            <h1>💰 Sell My Crop</h1>
+
+            <p>
+                Connect your crop with verified buyers and companies.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <div class="sell-container">
+
+
+        <!-- SELL FORM -->
+
+        <div class="sell-card">
+
+            <h2>Crop Selling Request</h2>
+
+            <p>
+                Enter your crop details to create a selling request.
+            </p>
+
+
+            <form id="sellCropForm">
+
+
+                <!-- CROP -->
+
+                <div class="form-group">
+
+                    <label>Crop Name</label>
+
+                    <select id="cropName" required>
+
+    <option value="">Select Crop</option>
+
+    <option value="Tomato">🍅 Tomato</option>
+    <option value="Wheat">🌾 Wheat</option>
+    <option value="Soybean">🫘 Soybean</option>
+    <option value="Onion">🧅 Onion</option>
+    <option value="Maize">🌽 Maize</option>
+    <option value="Potato">🥔 Potato</option>
+    <option value="Chilli">🌶️ Chilli</option>
+    <option value="Rice">🍚 Rice</option>
+    <option value="Cotton">🌿 Cotton</option>
+    <option value="Groundnut">🥜 Groundnut</option>
+    <option value="Carrot">🥕 Carrot</option>
+    <option value="Cabbage">🥬 Cabbage</option>
+    <option value="Brinjal">🍆 Brinjal</option>
+    <option value="Cucumber">🥒 Cucumber</option>
+    <option value="Green Peas">🫛 Green Peas</option>
+
+</select>
+                </div>
+
+
+                <!-- QUANTITY + PRICE -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>Quantity (KG)</label>
+
+                        <input
+                            type="number"
+                            id="quantity"
+                            placeholder="Example: 500"
+                            min="1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Expected Price (₹/KG)</label>
+
+                        <input
+                            type="number"
+                            id="price"
+                            placeholder="Example: 35"
+                            min="1"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- HARVEST DATE -->
+
+                <div class="form-group">
+
+                    <label>Expected Harvest Date</label>
+
+                    <input
+                        type="date"
+                        id="harvestDate"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- QUALITY -->
+
+                <div class="form-group">
+
+                    <label>Crop Quality</label>
+
+                    <select id="quality" required>
+
+                        <option value="">
+                            Select Quality
+                        </option>
+
+                        <option>Grade A - Premium</option>
+                        <option>Grade B - Good</option>
+                        <option>Grade C - Standard</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- LOCATION -->
+
+                <div class="form-group">
+
+                    <label>Pickup Location</label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        placeholder="Village / City / District"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group">
+
+                    <label>Additional Information</label>
+
+                    <textarea
+                        id="description"
+                        rows="4"
+                        placeholder="Enter additional crop information..."
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    📤 Send Selling Request
+                </button>
+
+
+            </form>
+
+
+            <!-- SUCCESS -->
+
+            <div
+                id="successMessage"
+                class="success-message"
+            >
+
+                ✅ <strong>Selling Request Submitted!</strong>
+
+                <p>
+                    Your crop request has been created successfully.
+                    Companies can now review your crop details and send
+                    you an offer.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="ai-card">
+
+            <h2>🤖 AI Selling Assistant</h2>
+
+            <p>
+                Smart assistance for your crop selling process.
+            </p>
+
+
+            <div class="ai-box">
+
+                <h3>💡 How it works</h3>
+
+                <p>
+                    Enter your crop information and submit your request.
+                    The platform can then connect your crop listing with
+                    suitable buyers or companies.
+                </p>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-icon">
+                    🏭
+                </div>
+
+                <div>
+
+                    <strong>Company Connection</strong>
+
+                    <span>
+                        Your crop can be shown to registered buyers.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-icon">
+                    ⚖️
+                </div>
+
+                <div>
+
+                    <strong>Quality Information</strong>
+
+                    <span>
+                        Provide crop quality and quantity details.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-icon">
+                    🚚
+                </div>
+
+                <div>
+
+                    <strong>Pickup & Transport</strong>
+
+                    <span>
+                        Transport details can be managed after an order
+                        is confirmed.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-icon">
+                    💳
+                </div>
+
+                <div>
+
+                    <strong>Payment</strong>
+
+                    <span>
+                        Payment status can be tracked after delivery.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script type="module">
+import { auth, db } from "./company/firebase.js";
+
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+import {
+  addDoc,
+  collection,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+let currentUser = null;
+
+onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+});
+
+const params = new URLSearchParams(window.location.search);
+const selectedCrop = params.get("crop");
+
+if (selectedCrop) {
+  document.getElementById("cropName").value = selectedCrop;
+}
+
+document
+  .getElementById("sellCropForm")
+  .addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    if (!currentUser) {
+      alert("Please login as a farmer before submitting.");
+      window.location.href = "login.html";
+      return;
+    }
+
+    const request = {
+      cropName: document.getElementById("cropName").value,
+      quantityKg: Number(document.getElementById("quantity").value),
+      pricePerKg: Number(document.getElementById("price").value),
+      harvestDate: document.getElementById("harvestDate").value,
+      quality: document.getElementById("quality").value,
+      location: document.getElementById("location").value,
+      description: document.getElementById("description").value,
+      farmerUid: currentUser.uid,
+      status: "Pending",
+      requestId: "REQ" + Date.now(),
+      createdAt: serverTimestamp()
+    };
+
+    if (
+      !request.cropName ||
+      request.quantityKg <= 0 ||
+      request.pricePerKg <= 0
+    ) {
+      alert("Please enter a crop, quantity and price greater than zero.");
+      return;
+    }
+
+    try {
+      const docRef = await addDoc(
+        collection(db, "cropSales"),
+        request
+      );
+
+      const total = request.quantityKg * request.pricePerKg;
+
+      const message = document.getElementById("successMessage");
+      message.style.display = "block";
+      message.textContent =
+        `Selling request saved! ${request.cropName}, ` +
+        `${request.quantityKg} KG. Expected value: ₹${total.toLocaleString("en-IN")}. ` +
+        `Request ID: ${docRef.id}`;
+
+      console.log("Firebase document ID:", docRef.id);
+
+    } catch (error) {
+      console.error("Selling request error:", error);
+      alert("Request Firebase mein save nahi hui: " + error.message);
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crop Monitoring | AgriConnect AI</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f8f1;
+      color: #173d2b;
+    }
+
+    header {
+      background: #174d32;
+      color: white;
+      padding: 22px 6%;
+    }
+
+    header h1 {
+      margin-bottom: 8px;
+    }
+
+    nav {
+      background: white;
+      padding: 16px 6%;
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 8px #0001;
+    }
+
+    nav a {
+      color: #174d32;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 18px;
+    }
+
+    .intro {
+      margin-bottom: 25px;
+    }
+
+    .intro p {
+      margin-top: 10px;
+      color: #587064;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px #00000012;
+    }
+
+    .card img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+    }
+
+    .details {
+      padding: 18px;
+    }
+
+    .details h3 {
+      margin-bottom: 12px;
+    }
+
+    .details p {
+      margin: 10px 0;
+      color: #52675a;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 7px 12px;
+      background: #fff0c2;
+      color: #805b00;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 22px;
+      margin-top: 35px;
+      background: #174d32;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🌿 AgriConnect AI</h1>
+    <p>Smart Crop Monitoring System</p>
+  </header>
+
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="monitoring.html">Monitoring</a>
+    <a href="login.html">Login</a>
+  </nav>
+
+  <main class="container">
+    <div class="intro">
+      <h2>Crop Monitoring 🌱</h2>
+      <p>Monitor crop quality, harvest information and delivery progress.</p>
+    </div>
+
+    <div class="cards">
+
+     <div class="card">
+      <img src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=800&q=80" alt="Tomatoes">
+        <div class="details">
+      <h3>🍅 Tomato</h3>
+      <p><strong>Quantity:</strong> 500 kg</p>
+      <p><strong>Quality:</strong> Grade A (Sample)</p>
+      <p><strong>Harvest:</strong> Upcoming</p>
+      <span class="status">Pending</span>
+      </div>
+     </div>
+
+      <div class="card">
+      <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=800&q=80" alt="Wheat">
+      <div class="details">
+      <h3>🌾 Wheat</h3>
+      <p><strong>Quantity:</strong> 300 kg</p>
+      <p><strong>Quality:</strong> Grade A (Sample)</p>
+      <p><strong>Harvest:</strong> Ready</p>
+      <span class="status">In Progress</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="soyabean.jpg" alt="Soybean field">
+    <div class="details">
+      <h3>🌱 Soybean</h3>
+      <p><strong>Quantity:</strong> 250 kg</p>
+      <p><strong>Quality:</strong> To be checked</p>
+      <p><strong>Delivery:</strong> Not started</p>
+      <span class="status">Pending</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=800&q=80" alt="Apples">
+    <div class="details">
+      <h3>🍎 Apple</h3>
+      <p><strong>Quantity:</strong> 200 kg</p>
+      <p><strong>Quality:</strong> Grade A (Sample)</p>
+      <p><strong>Harvest:</strong> Ready</p>
+      <span class="status">Ready</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1591073113125-e46713c829ed?auto=format&fit=crop&w=800&q=80" alt="Potatoes">
+    <div class="details">
+      <h3>🥭 Mango</h3>
+       <p><strong>Quantity:</strong> 400 kg</p>
+      <p><strong>Quality:</strong> To be checked</p>
+      <p><strong>Harvest:</strong> Upcoming</p>
+      <span class="status">Pending</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="corn.jpg" alt="Corn">
+    <div class="details">
+      <h3>🌽 Corn</h3>
+      <p><strong>Quantity:</strong> 350 kg</p>
+      <p><strong>Quality:</strong> Grade B (Sample)</p>
+      <p><strong>Harvest:</strong> In progress</p>
+      <span class="status">In Progress</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=800&q=80" alt="Carrots">
+    <div class="details">
+      <h3>🥕 Carrot</h3>
+      <p><strong>Quantity:</strong> 150 kg</p>
+      <p><strong>Quality:</strong> Grade A (Sample)</p>
+      <p><strong>Harvest:</strong> Ready</p>
+      <span class="status">Ready</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="onion.jpg" alt="Onions">
+    <div class="details">
+      <h3>🧅 Onion</h3>
+      <p><strong>Quantity:</strong> 275 kg</p>
+      <p><strong>Quality:</strong> Grade B (Sample)</p>
+      <p><strong>Delivery:</strong> Not started</p>
+      <span class="status">Pending</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="capsicum.jpg" alt="Bell peppers">
+    <div class="details">
+      <h3>🫑 Capsicum</h3>
+      <p><strong>Quantity:</strong> 180 kg</p>
+      <p><strong>Quality:</strong> Grade A (Sample)</p>
+      <p><strong>Harvest:</strong> Upcoming</p>
+      <span class="status">Pending</span>
+    </div>
+  </div>
+
+  
+  <div class="card">
+    <img src="cabage.jpg" alt="Cabbage">
+    <div class="details">
+      <h3>🥬 Cabbage</h3>
+      <p><strong>Quantity:</strong> 220 kg</p>
+      <p><strong>Quality:</strong> Grade A (Sample)</p>
+      <p><strong>Harvest:</strong> Ready</p>
+      <span class="status">Ready</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="lettuce.jpg" alt="Lettuce">
+    <div class="details">
+      <h3>🥗 Lettuce</h3>
+      <p><strong>Quantity:</strong> 100 kg</p>
+      <p><strong>Quality:</strong> Grade A (Sample)</p>
+      <p><strong>Harvest:</strong> Upcoming</p>
+      <span class="status">Pending</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=800&q=80" alt="Sweet potato">
+    <div class="details">
+      <h3>🍠 Sweet Potato</h3>
+      <p><strong>Quantity:</strong> 180 kg</p>
+      <p><strong>Quality:</strong> Grade B (Sample)</p>
+      <p><strong>Harvest:</strong> Ready</p>
+      <span class="status">Ready</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="cucumber.jpg" alt="Cucumber">
+    <div class="details">
+      <h3>🥒 Cucumber</h3>
+      <p><strong>Quantity:</strong> 160 kg</p>
+      <p><strong>Quality:</strong> To be checked</p>
+      <p><strong>Harvest:</strong> Upcoming</p>
+      <span class="status">Pending</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="radish.jpg" alt="Radish">
+    <div class="details">
+      <h3>🌱 Radish</h3>
+      <p><strong>Quantity:</strong> 120 kg</p>
+      <p><strong>Quality:</strong> Grade A (Sample)</p>
+      <p><strong>Harvest:</strong> Ready</p>
+      <span class="status">Ready</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?auto=format&fit=crop&w=800&q=80" alt="Cauliflower">
+    <div class="details">
+      <h3>🥦 Cauliflower</h3>
+      <p><strong>Quantity:</strong> 240 kg</p>
+      <p><strong>Quality:</strong> Grade A (Sample)</p>
+      <p><strong>Harvest:</strong> In progress</p>
+      <span class="status">In Progress</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="garlic.jpg" alt="Garlic">
+    <div class="details">
+      <h3>🧄 Garlic</h3>
+      <p><strong>Quantity:</strong> 90 kg</p>
+      <p><strong>Quality:</strong> Grade B (Sample)</p>
+      <p><strong>Harvest:</strong> Ready</p>
+      <span class="status">Ready</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="chilli.jpg" alt="Chilli peppers">
+    <div class="details">
+      <h3>🌶️ Chilli</h3>
+      <p><strong>Quantity:</strong> 140 kg</p>
+      <p><strong>Quality:</strong> To be checked</p>
+      <p><strong>Harvest:</strong> Upcoming</p>
+      <span class="status">Pending</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="beetroot.jpg" alt="Beetroot">
+    <div class="details">
+      <h3>🟣 Beetroot</h3>
+      <p><strong>Quantity:</strong> 110 kg</p>
+      <p><strong>Quality:</strong> Grade A (Sample)</p>
+      <p><strong>Harvest:</strong> Ready</p>
+      <span class="status">Ready</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="green pease.jpg" alt="Green peas">
+    <div class="details">
+      <h3>🫛 Green Peas</h3>
+      <p><strong>Quantity:</strong> 200 kg</p>
+      <p><strong>Quality:</strong> Grade A (Sample)</p>
+      <p><strong>Harvest:</strong> In progress</p>
+      <span class="status">In Progress</span>
+    </div>
+  </div>
+
+</div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 AgriConnect AI | From Seed to Sale 🌾</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seed Details | AgriConnect AI</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .detail-card {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 18px #00000015;
+            line-height: 1.8;
+    }
+
+    .detail-card h2, .detail-card h3 {
+        color: #236b3b;
+    }
+
+    .detail-card li {
+        margin-bottom: 8px;
+    }
+
+    .back-btn {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+    }
+</style>
+
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        <div class="logo-icon">🌿</div>
+        <div>
+            <h2>AgriConnect <span>AI</span></h2>
+            <small>From Seed to Sale</small>
+        </div>
+    </div>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="seeds.html">Seed Selection</a>
+</nav>
+
+</header>
+
+<section class="process">
+    <div class="detail-card">
+        <h2 id="title">Seed Information</h2>
+        <p id="intro"></p>
+
+    <h3>Important Points</h3>
+    <ul id="points"></ul>
+
+    <h3>Steps to Follow</h3>
+    <ol id="steps"></ol>
+
+    <h3>Farmer's Tip</h3>
+    <p id="tip"></p>
+
+    <a href="seeds.html" class="primary-btn back-btn">
+        ← Back to Seed Selection
+    </a>
+</div>
+
+</section>
+
+<script>
+const topics = {
+    wheat: {
+        title: "🌾 Wheat Farming",
+        intro: "Wheat is an important food crop. Select a suitable variety according to your region, season and soil.",
+        points: [
+            "Choose certified seeds suited to your local area.",
+            "Check seed quality and germination before sowing.",
+            "Prepare a suitable seedbed with adequate soil moisture.",
+            "Avoid waterlogging and follow local fertilizer advice."
+        ],
+        steps: [
+            "Check the recommended sowing period for your region.",
+            "Prepare the field and level the soil.",
+            "Sow seeds at the locally recommended depth and spacing.",
+            "Monitor weeds, pests, disease and soil moisture."
+        ],
+        tip: "Ask your local agriculture officer for a wheat variety and sowing schedule suitable for your farm."
+    },
+
+    rice: {
+        title: "🌾 Rice Farming",
+        intro: "Rice is a major food crop. Its growing method depends on water availability, soil and local climate.",
+        points: [
+            "Select a variety suitable for your region.",
+            "Use healthy seeds from a reliable source.",
+            "Plan water management before planting.",
+            "Monitor the crop for weeds, pests and diseases."
+        ],
+        steps: [
+            "Choose a locally recommended rice variety.",
+            "Prepare the field according to the selected growing method.",
+            "Sow seeds directly or transplant seedlings as appropriate.",
+            "Manage water and nutrients according to local guidance."
+        ],
+        tip: "Choose a rice-growing method that matches your water availability."
+    },
+
+    soybean: {
+        title: "🫘 Soybean Farming",
+        intro: "Soybean is a legume crop grown for its protein-rich seeds and oil. Suitable varieties depend on local conditions.",
+        points: [
+            "Choose a variety recommended for your area.",
+            "Use healthy, certified seeds.",
+            "Ensure the field has good drainage.",
+            "Avoid sowing into excessively wet soil."
+        ],
+        steps: [
+            "Check the local sowing window and weather forecast.",
+            "Prepare a well-drained field.",
+            "Follow recommended seed treatment and sowing practices.",
+            "Monitor weeds, insects and diseases throughout growth."
+        ],
+        tip: "Do not allow standing water to remain in the field for long periods."
+    },
+
+    cotton: {
+        title: "🌿 Cotton Farming",
+        intro: "Cotton is a commercial fibre crop. Variety selection and crop management should match local farming conditions.",
+        points: [
+            "Buy genuine seeds from a trusted supplier.",
+            "Check the variety and applicable seed requirements.",
+            "Select a well-drained field.",
+            "Monitor sucking pests and other crop problems."
+        ],
+        steps: [
+            "Check the locally recommended sowing period.",
+            "Prepare the field and plan suitable spacing.",
+            "Sow seeds according to the variety guidance.",
+            "Inspect the crop regularly and manage pests responsibly."
+        ],
+        tip: "Follow local agricultural guidance for cotton variety selection and pest management."
+    },
+
+    tomato: {
+        title: "🍅 Tomato Farming",
+        intro: "Tomato is a vegetable crop that grows best when variety, temperature, soil moisture and crop care are suitable.",
+        points: [
+            "Select a variety suited to your season.",
+            "Use healthy seeds or seedlings from a reliable source.",
+            "Choose well-drained soil.",
+            "Monitor for common tomato pests and diseases."
+        ],
+        steps: [
+            "Select the variety and prepare a nursery if required.",
+            "Prepare the field and transplant healthy seedlings when appropriate.",
+            "Provide suitable irrigation and support where needed.",
+            "Inspect plants regularly and harvest at the right maturity."
+        ],
+        tip: "Avoid overwatering and remove diseased plant material safely."
+    }
+};
+
+const extraTopics = {
+    "Check expiry date": {
+        title: "🗓️ Check Seed Expiry Date",
+        intro: "Seed labels help farmers check the seed lot details and its suitability for planting.",
+        points: [
+            "Read the label before opening the packet.",
+            "Check the validity or applicable test date information.",
+            "Inspect the packet for damage or moisture.",
+            "Keep the purchase receipt and label details."
+        ],
+        steps: [
+            "Read the complete seed label.",
+            "Check the lot number and relevant dates.",
+            "Confirm the packet is sealed and undamaged.",
+            "Ask the supplier if any label detail is unclear."
+        ],
+        tip: "Do not use a packet if its quality or label information is doubtful."
+    },
+
+    "Choose certified seeds": {
+        title: "🧪 Certified Seeds",
+        intro: "Certified seeds are produced and checked under applicable seed certification standards.",
+        points: [
+            "Buy from a trusted supplier.",
+            "Check the certification tag and lot details.",
+            "Confirm the crop variety and quantity.",
+            "Store seeds in suitable dry conditions."
+        ],
+        steps: [
+            "Identify the variety suitable for your region.",
+            "Check the packet label and certification details.",
+            "Keep the bill for future reference.",
+            "Store the packet according to label instructions."
+        ],
+        tip: "Certification does not remove the need to check the packet and storage conditions."
+    },
+
+    "Check seeds for damage": {
+        title: "🔍 Check Seed Damage",
+        intro: "Damaged, mouldy or poorly stored seeds may have reduced germination.",
+        points: [
+            "Look for broken, shrivelled or discoloured seeds.",
+            "Check for signs of moisture or mould.",
+            "Inspect the packet for insects or damage.",
+            "Use an appropriate germination test when needed."
+        ],
+        steps: [
+            "Open and inspect a sample carefully.",
+            "Separate visibly damaged seeds.",
+            "Check germination using a suitable method.",
+            "Seek advice if seed quality remains uncertain."
+        ],
+        tip: "Visual inspection alone cannot confirm the germination rate."
+    },
+
+    "Rainy season": {
+        title: "🌧️ Rainy Season",
+        intro: "Rainy-season crop choices depend on rainfall timing, drainage and local climate.",
+        points: [
+            "Choose crops recommended for the local monsoon.",
+            "Check the short-term weather forecast.",
+            "Ensure drainage to reduce waterlogging.",
+            "Avoid sowing when field conditions are unsuitable."
+        ],
+        steps: [
+            "Check local seasonal crop recommendations.",
+            "Assess soil moisture and drainage.",
+            "Select suitable seeds.",
+            "Monitor rainfall and crop health."
+        ],
+        tip: "A rainy season does not mean every crop will suit every field."
+    },
+
+    "Winter season": {
+        title: "❄️ Winter Season",
+        intro: "Winter crop selection depends on local temperature, sowing time, water availability and soil conditions.",
+        points: [
+            "Check which crops suit your local winter.",
+            "Select suitable seed varieties.",
+            "Plan irrigation according to crop needs.",
+            "Watch for temperature-related crop stress."
+        ],
+        steps: [
+            "Check local sowing recommendations.",
+            "Prepare the soil.",
+            "Choose quality seeds.",
+            "Monitor crop growth and moisture."
+        ],
+        tip: "Follow regional agricultural advice for exact sowing dates."
+    },
+
+    "Summer season": {
+        title: "☀️ Summer Season",
+        intro: "Summer farming requires careful planning of water, heat and crop choice.",
+        points: [
+            "Choose crops suited to local summer conditions.",
+            "Check available irrigation water.",
+            "Monitor heat stress.",
+            "Maintain suitable soil moisture."
+        ],
+        steps: [
+            "Assess water availability.",
+            "Select a locally recommended crop.",
+            "Prepare the field and sow at the recommended time.",
+            "Monitor irrigation and crop health."
+        ],
+        tip: "Avoid choosing a crop without considering water availability."
+    }
+};
+
+const topic = new URLSearchParams(window.location.search).get("topic");
+const data = topics[topic] || extraTopics[topic];
+
+if (data) {
+    document.getElementById("title").textContent = data.title;
+    document.getElementById("intro").textContent = data.intro;
+    document.getElementById("tip").textContent = data.tip;
+
+    data.points.forEach(text => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        document.getElementById("points").appendChild(li);
+    });
+
+    data.steps.forEach(text => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        document.getElementById("steps").appendChild(li);
+    });
+} else {
+    document.getElementById("title").textContent = "Seed Information";
+    document.getElementById("intro").textContent =
+        "Detailed information for this option is not available yet. Please return to Seed Selection.";
+    document.getElementById("points").innerHTML =
+        "<li>Choose quality seeds suitable for your region.</li>";
+    document.getElementById("tip").textContent =
+        "Consult your local agriculture officer for crop-specific advice.";
+}
+</script>
+
+</body>
+</html>

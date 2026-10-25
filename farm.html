@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm | AgriConnect AI</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+#farmOptions .primary-btn {
+    background: #236b3b;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    margin: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+#farmOptions .primary-btn:hover {
+    background: #174b29;
+    transform: translateY(-2px);
+}
+</style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <div class="logo-icon">🌿</div>
+            <div>
+                <h2>AgriConnect <span>AI</span></h2>
+                <small>From Seed to Sale</small>
+            </div>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#process">How It Works</a>
+        </nav>
+    </header>
+
+    <section class="process">
+        <div class="section-title">
+            <h2>🚜 Smart Farming</h2>
+            <p>Manage your farm for healthy crop growth</p>
+        </div>
+
+<div class="feature-grid">
+
+    <div class="feature" onclick="showFarmDetails('soil')">
+        <span>🧪</span>
+        <div>
+            <h3>Soil Management</h3>
+            <p>Check soil quality and nutrients before planting crops.</p>
+        </div>
+    </div>
+
+    <div class="feature" onclick="showFarmDetails('water')">
+        <span>💧</span>
+        <div>
+            <h3>Irrigation</h3>
+            <p>Provide crops with the right amount of water.</p>
+        </div>
+    </div>
+
+    <div class="feature" onclick="showFarmDetails('fertilizer')">
+        <span>🌿</span>
+        <div>
+            <h3>Fertilizer</h3>
+            <p>Use suitable fertilizers according to crop requirements.</p>
+        </div>
+    </div>
+
+    <div class="feature" onclick="showFarmDetails('health')">
+        <span>🦠</span>
+        <div>
+            <h3>Crop Health</h3>
+            <p>Monitor plants for signs of pests and diseases.</p>
+        </div>
+    </div>
+
+</div>
+
+<div id="farmDetails" class="feature"
+     style="display:none; margin-top:25px; background:white;">
+
+    <h2 id="farmTitle"></h2>
+    <p id="farmText"></p>
+
+    <button class="primary-btn" onclick="closeFarmDetails()">
+        Close
+    </button>
+</div>
+
+
+
+        <div style="text-align:center; margin-top:40px;">
+            <a href="index.html#process" class="primary-btn">
+                ← Back to How It Works
+            </a>
+        </div>
+    </section>
+
+<script>
+function showFarmDetails(type) {
+    const farmInfo = {
+        soil: {
+            title: "🧪 Soil Management",
+            text: "Understand your soil before growing crops.",
+            options: [
+                "Soil Testing",
+                "Soil pH",
+                "Soil Nutrients",
+                "Soil Preparation"
+            ]
+        },
+
+        water: {
+            title: "💧 Smart Irrigation",
+            text: "Manage water according to crop and soil needs.",
+            options: [
+                "Drip Irrigation",
+                "Sprinkler Irrigation",
+                "Soil Moisture",
+                "Water Scheduling"
+            ]
+        },
+
+        fertilizer: {
+            title: "🌿 Fertilizer Management",
+            text: "Provide nutrients according to soil-test results and crop requirements.",
+            options: [
+                "Organic Fertilizer",
+                "NPK Fertilizer",
+                "Compost",
+                "Fertilizer Application"
+            ]
+        },
+
+        health: {
+            title: "🦠 Crop Health Monitoring",
+            text: "Monitor crops and identify possible problems early.",
+            options: [
+                "Disease Detection",
+                "Pest Monitoring",
+                "Yellow Leaves",
+                "Plant Growth"
+            ]
+        }
+    };
+
+    const item = farmInfo[type];
+
+    document.getElementById("farmTitle").textContent = item.title;
+    document.getElementById("farmText").textContent = item.text;
+
+    const details = document.getElementById("farmDetails");
+    let oldOptions = document.getElementById("farmOptions");
+
+    if (!oldOptions) {
+        oldOptions = document.createElement("div");
+        oldOptions.id = "farmOptions";
+        document.getElementById("farmText").after(oldOptions);
+    }
+
+    oldOptions.innerHTML = "";
+
+    item.options.forEach(option => {
+        const button = document.createElement("button");
+        button.className = "primary-btn";
+        button.style.margin = "8px";
+        button.textContent = option;
+
+        button.onclick = function () {
+            window.location.href =
+                "farm-detail.html?topic=" +
+                encodeURIComponent(option);
+        };
+
+        oldOptions.appendChild(button);
+    });
+
+    details.style.display = "block";
+    details.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+
+function closeFarmDetails() {
+    document.getElementById("farmDetails").style.display = "none";
+}
+</script>
+
+</body>
+</html>

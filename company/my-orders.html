@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | AgriConnect AI</title>
+    <link rel="stylesheet" href="company.css">
+    <script type="module">
+    import { auth } from "./firebase.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            window.location.href = "login.html";
+        }
+    });
+</script>
+</head>
+<body>
+
+    <div class="page-content">
+        <h1>📦 My Orders</h1>
+        <p>Manage your crop purchase orders.</p>
+
+        <div class="order-card">
+            <h2>Order #AGR1001</h2>
+            <p>🍅 Crop: Tomato</p>
+            <p>Quantity: 500 KG</p>
+            <p>Price: ₹35 / KG</p>
+            <p>Status: <strong>In Transit</strong></p>
+        </div>
+
+        <div class="order-card">
+            <h2>Order #AGR1002</h2>
+            <p>🌾 Crop: Wheat</p>
+            <p>Quantity: 800 KG</p>
+            <p>Price: ₹28 / KG</p>
+            <p>Status: <strong>Completed</strong></p>
+        </div>
+
+        <a href="dashboard.html">← Return to Dashboard</a>
+    </div>
+
+</body>
+</html>

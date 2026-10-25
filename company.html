@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company | AgriConnect AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        <div class="logo-icon">🌿</div>
+        <div>
+            <h2>AgriConnect <span>AI</span></h2>
+            <small>From Seed to Sale</small>
+        </div>
+    </div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="index.html#process">How It Works</a>
+    </nav>
+</header>
+
+<section class="process">
+    <div class="section-title">
+        <h2>🏭 Farmer to Company</h2>
+        <p>Connect farmers directly with agricultural companies</p>
+    </div>
+
+    
+
+<div class="feature" onclick="showConnectionDetails()" style="cursor: pointer;">
+    <span>🤝</span>
+    <div>
+        <h3>Direct Connection</h3>
+        <p>Help farmers connect with companies and buyers.</p>
+    </div>
+</div>
+
+
+
+    <div class="feature" onclick="window.location.href='company/farmer-requests.html'" style="cursor:pointer;">
+        <span>🌾</span>
+        <div>
+            <h3>Crop Requests</h3>
+            <p>Companies can review available crops and farmer offers.</p>
+        </div>
+    </div>
+
+    <div class="feature" onclick="window.location.href='company/quality-check.html'" style="cursor:pointer;">
+        <span>🔍</span>
+        <div>
+            <h3>Quality Check</h3>
+            <p>Review crop quality before accepting an order.</p>
+        </div>
+    </div>
+
+    <div class="feature" onclick="window.location.href='company/transport.html'" style="cursor:pointer;">
+        <span>🚚</span>
+        <div>
+            <h3>Transportation</h3>
+            <p>Plan crop pickup and delivery to the company.</p>
+        </div>
+    </div>
+
+</div>
+
+
+    <div style="text-align:center; margin-top:40px;">
+        <a href="index.html#process" class="primary-btn">
+            ← Back to How It Works
+        </a>
+    </div>
+</section>
+
+<div id="connectionDetails" class="feature"
+     style="display:none; margin:20px; background:white;">
+    <h2>🤝 Direct Connection</h2>
+    <p>Farmers can connect directly with agricultural companies and buyers.</p>
+
+    <label>Farmer Name:</label>
+    <input type="text" id="farmerName" placeholder="Enter farmer name">
+
+    <br><br>
+
+    <label>Crop Name:</label>
+    <input type="text" id="cropName" placeholder="Enter crop name">
+
+    <br><br>
+
+    <label>Company Name:</label>
+    <input type="text" id="companyName" placeholder="Enter company name">
+
+    <br><br>
+
+    <button class="primary-btn" onclick="sendConnectionRequest()">
+        Send Request
+    </button>
+
+    <button class="primary-btn" onclick="closeConnectionDetails()">
+        Close
+    </button>
+
+    <p id="connectionMessage"></p>
+</div>
+
+
+<script>
+function showConnectionDetails() {
+    const box = document.getElementById("connectionDetails");
+
+    box.style.display = "block";
+    box.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+
+function closeConnectionDetails() {
+    document.getElementById("connectionDetails").style.display = "none";
+}
+
+function sendConnectionRequest() {
+    const farmer = document.getElementById("farmerName").value.trim();
+    const crop = document.getElementById("cropName").value.trim();
+    const company = document.getElementById("companyName").value.trim();
+    const message = document.getElementById("connectionMessage");
+
+    if (!farmer || !crop || !company) {
+        message.textContent = "Please fill in all fields.";
+        return;
+    }
+
+    message.textContent =
+        "Request details entered successfully! Database saving is not connected yet.";
+}
+</script>
+
+
+</body>
+</html>

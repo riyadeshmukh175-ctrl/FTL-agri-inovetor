@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Company Dashboard | AgriConnect AI</title>
+
+    <link rel="stylesheet" href="company.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8f5;
+            color: #20352a;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 250px;
+            background: #173d2b;
+            color: white;
+            padding: 25px 18px;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .portal {
+            font-size: 12px;
+            color: #b9d8c3;
+            margin-bottom: 35px;
+        }
+
+        .menu a {
+            display: block;
+            text-decoration: none;
+            color: #dcebe0;
+            padding: 14px;
+            margin-bottom: 7px;
+            border-radius: 10px;
+        }
+
+        .menu a:hover,
+        .menu .active {
+            background: #159447;
+            color: white;
+        }
+
+        .logout {
+            margin-top: 30px;
+            border-top: 1px solid #426250;
+            padding-top: 20px;
+        }
+
+        /* MAIN */
+
+        .main {
+            flex: 1;
+            padding: 30px 40px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .topbar h1 {
+            color: #173d2b;
+            margin-bottom: 7px;
+        }
+
+        .topbar p {
+            color: #718078;
+        }
+
+        .company-profile {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 12px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,.05);
+        }
+
+        .company-icon {
+            width: 45px;
+            height: 45px;
+            background: #e7f6eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat {
+            background: white;
+            padding: 24px;
+            border-radius: 18px;
+            box-shadow: 0 6px 25px rgba(0,0,0,.06);
+        }
+
+        .stat-icon {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .stat small {
+            color: #718078;
+        }
+
+        .stat h2 {
+            margin-top: 7px;
+            font-size: 28px;
+            color: #173d2b;
+        }
+
+        /* CONTENT */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 6px 25px rgba(0,0,0,.06);
+            margin-bottom: 25px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .card-header h2 {
+            color: #173d2b;
+        }
+
+        .card-header span {
+            color: #159447;
+            font-size: 14px;
+        }
+
+        /* REQUEST */
+
+        .request {
+            border: 1px solid #e2ebe5;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .request:last-child {
+            margin-bottom: 0;
+        }
+
+        .request-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .crop-name {
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .request-id {
+            color: #718078;
+            font-size: 12px;
+        }
+
+        .pending {
+            background: #fff3d6;
+            color: #9a6700;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .request-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .detail small {
+            display: block;
+            color: #7a8980;
+            margin-bottom: 5px;
+        }
+
+        .detail strong {
+            color: #294a3a;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .actions button {
+            border: none;
+            padding: 10px 16px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .view-btn {
+            background: #edf5ef;
+            color: #176b35;
+        }
+
+        .accept-btn {
+            background: #159447;
+            color: white;
+        }
+
+        .offer-btn {
+            background: #fff2d9;
+            color: #8a6100;
+        }
+
+        /* ORDERS */
+
+        .order {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 17px 0;
+            border-bottom: 1px solid #edf1ee;
+        }
+
+        .order:last-child {
+            border-bottom: none;
+        }
+
+        .order strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .order small {
+            color: #7a8980;
+        }
+
+        .order-status {
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .transit {
+            background: #e8f2ff;
+            color: #2863a5;
+        }
+
+        .completed {
+            background: #e7f8eb;
+            color: #176b35;
+        }
+
+        /* ACTIVITY */
+
+        .activity {
+            display: flex;
+            gap: 12px;
+            padding: 15px 0;
+            border-bottom: 1px solid #edf1ee;
+        }
+
+        .activity-icon {
+            font-size: 22px;
+        }
+
+        .activity strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .activity small {
+            color: #7a8980;
+        }
+
+        @media(max-width: 1000px) {
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media(max-width: 700px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                padding: 20px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .request-details {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+        }
+
+    </style>
+<script type="module">
+    import { auth } from "./firebase.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            window.location.href = "login.html";
+        }
+    });
+</script>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            🏭 AgriConnect AI
+        </div>
+
+        <div class="portal">
+            Company Portal
+        </div>
+
+        <nav class="menu">
+
+            <a href="#" class="active">
+                📊 Dashboard
+            </a>
+            <a href="farmer-requests.html">
+    🌾 Farmer Requests
+</a>
+<a href="my-orders.html">
+    📦 My Orders
+</a>
+<a href="transport.html">
+    🚚 Transport
+</a>
+<a href="quality-check.html">
+    ✅ Quality Check
+</a>
+<a href="payments.html">
+    💳 Payments
+</a>
+<a href="company-profile.html">
+    👤 Company Profile
+</a>
+
+<a href="monitoring.html">🌱 Monitoring</a>
+
+<a href="quote.html">📝 Send Quote</a>
+
+<a href="./my-quote.html">💰 My Quotes</a>
+
+        </nav>
+
+        <div class="logout">
+
+            <a href="login.html" onclick="return confirmLogout(event)">
+    🚪 Logout
+</a>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>Company Dashboard</h1>
+
+                <p>
+                    Manage farmer requests, crop purchases and orders.
+                </p>
+
+            </div>
+
+            <div class="company-profile">
+
+                <div class="company-icon">
+                    🏭
+                </div>
+
+                <div>
+
+                    <strong>Green Fresh Foods</strong>
+
+                    <small>
+                        Company Account
+                    </small>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- STATS -->
+
+        <section class="stats">
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🌾
+                </div>
+
+                <small>New Crop Requests</small>
+
+                <h2>12</h2>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📦
+                </div>
+
+                <small>Active Orders</small>
+
+                <h2>08</h2>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🚚
+                </div>
+
+                <small>In Transit</small>
+
+                <h2>04</h2>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    💰
+                </div>
+
+                <small>Total Purchases</small>
+
+                <h2>₹2.4L</h2>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTENT -->
+
+        <section class="content-grid">
+
+
+            <!-- FARMER REQUESTS -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h2>🌾Farmer Crop Requests</h2>
+
+                    <span>
+                        View All →
+                    </span>
+
+                </div>
+
+
+                <!-- REQUEST 1 -->
+
+                <div id="firebaseCropRequests"></div>
+                    
+                <!-- SAMPLE REQUESTS -->
+                     <div class="request">
+                        <div class="request-top">
+
+                        <div>
+
+                            <div class="crop-name">
+                                🍅 Tomato
+                            </div>
+
+                            <div class="request-id">
+                                Request #REQ1001
+                            </div>
+
+                        </div>
+
+                        <span class="pending">
+                            Pending
+                        </span>
+                       </div>
+                        </div>
+
+ 
+                    <div class="request-details">
+
+                        <div class="detail">
+
+                            <small>Farmer</small>
+
+                            <strong>Rajesh Patil</strong>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <small>Quantity</small>
+
+                            <strong>500 KG</strong>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <small>Expected Price</small>
+
+                            <strong>₹35 / KG</strong>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <small>Quality</small>
+
+                            <strong>Grade A</strong>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <small>Location</small>
+
+                            <strong>Nagpur</strong>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <small>Harvest</small>
+
+                            <strong>15 Oct 2026</strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="actions">
+
+                        <button class="view-btn"
+                                onclick="viewRequest('REQ1001')">
+                            View Details
+                        </button>
+
+                        <button class="accept-btn"
+                                onclick="acceptRequest('Tomato')">
+                            Accept
+                        </button>
+
+                        <button class="offer-btn"
+                                onclick="makeOffer('Tomato')">
+                            Make Offer
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- REQUEST 2 -->
+
+                <div class="request">
+
+                    <div class="request-top">
+
+                        <div>
+
+                            <div class="crop-name">
+                                🌾 Wheat
+                            </div>
+
+                            <div class="request-id">
+                                Request #REQ1002
+                            </div>
+
+                        </div>
+
+                        <span class="pending">
+                            Pending
+                        </span>
+
+                    </div>
+
+
+                    <div class="request-details">
+
+                        <div class="detail">
+
+                            <small>Farmer</small>
+
+                            <strong>Sunil Deshmukh</strong>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <small>Quantity</small>
+
+                            <strong>800 KG</strong>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <small>Expected Price</small>
+
+                            <strong>₹28 / KG</strong>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <small>Quality</small>
+
+                            <strong>Grade A</strong>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <small>Location</small>
+
+                            <strong>Wardha</strong>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <small>Harvest</small>
+
+                            <strong>20 Nov 2026</strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="actions">
+
+                        <button class="view-btn"
+                                onclick="viewRequest('REQ1002')">
+                            View Details
+                        </button>
+
+                        <button class="accept-btn"
+                                onclick="acceptRequest('Wheat')">
+                            Accept
+                        </button>
+
+                        <button class="offer-btn"
+                                onclick="makeOffer('Wheat')">
+                            Make Offer
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- REQUEST 3 -->
+
+                <div class="request">
+
+                    <div class="request-top">
+
+                        <div>
+
+                            <div class="crop-name">
+                                🫘 Soybean
+                            </div>
+
+                            <div class="request-id">
+                                Request #REQ1003
+                            </div>
+
+                        </div>
+
+                        <span class="pending">
+                            Pending
+                        </span>
+
+                    </div>
+
+
+                    <div class="request-details">
+
+                        <div class="detail">
+
+                            <small>Farmer</small>
+
+                            <strong>Priya Sharma</strong>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <small>Quantity</small>
+
+                            <strong>400 KG</strong>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <small>Expected Price</small>
+
+                            <strong>₹55 / KG</strong>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <small>Quality</small>
+
+                            <strong>Grade A</strong>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <small>Location</small>
+
+                            <strong>Amravati</strong>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <small>Harvest</small>
+
+                            <strong>25 Oct 2026</strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="actions">
+
+                        <button class="view-btn"
+                                onclick="viewRequest('REQ1003')">
+                            View Details
+                        </button>
+
+                        <button class="accept-btn"
+                                onclick="acceptRequest('Soybean')">
+                            Accept
+                        </button>
+
+                        <button class="offer-btn"
+                                onclick="makeOffer('Soybean')">
+                            Make Offer
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT SIDE -->
+
+            <div>
+
+
+                <!-- ORDERS -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h2>📦 Recent Orders</h2>
+
+                        <span>View All →</span>
+
+                    </div>
+
+
+                    <div class="order">
+
+                        <div>
+
+                            <strong>#AGR1001</strong>
+
+                            <small>
+                                🍅 Tomato • 500 KG
+                            </small>
+
+                        </div>
+
+                        <span class="order-status transit">
+                            In Transit
+                        </span>
+
+                    </div>
+
+
+                    <div class="order">
+
+                        <div>
+
+                            <strong>#AGR1002</strong>
+
+                            <small>
+                                🌾 Wheat • 800 KG
+                            </small>
+
+                        </div>
+
+                        <span class="order-status completed">
+                            Completed
+                        </span>
+
+                    </div>
+
+
+                    <div class="order">
+
+                        <div>
+
+                            <strong>#AGR1003</strong>
+
+                            <small>
+                                🫘 Soybean • 400 KG
+                            </small>
+
+                        </div>
+
+                        <span class="order-status transit">
+                            In Transit
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIVITY -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h2>🔔 Recent Activity</h2>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            🌾
+                        </div>
+
+                        <div>
+
+                            <strong>
+                            New Tomato request
+                            </strong>
+
+                            <small>
+                            10 minutes ago
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            🚚
+                        </div>
+
+                        <div>
+
+                            <strong>
+                            Order #AGR1001 shipped
+                            </strong>
+
+                            <small>
+                            2 hours ago
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            💳
+                        </div>
+
+                        <div>
+
+                            <strong>
+                            Payment processed
+                            </strong>
+
+                            <small>
+                            Yesterday
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+function viewRequest(requestId) {
+
+    alert(
+        "Opening details for " +
+        requestId
+    );
+
+}
+
+
+function acceptRequest(cropName) {
+
+    alert(
+        cropName +
+        " request accepted successfully! ✅"
+    );
+
+}
+
+
+function makeOffer(cropName) {
+
+    const price = prompt(
+        "Enter your offer price per KG for " +
+        cropName + ":"
+    );
+
+    if (price) {
+
+        alert(
+            "Offer of ₹" +
+            price +
+            "/KG sent to farmer. 💬"
+        );
+
+    }
+
+}
+
+</script>
+
+<script type="module">
+    import { auth } from "./firebase.js";
+    import { signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    window.confirmLogout = function(event) {
+        event.preventDefault();
+
+        const confirmExit = confirm("Are you sure you want to logout?");
+
+        if (confirmExit) {
+            signOut(auth)
+                .then(() => {
+                    alert("Logout successful!");
+                    window.location.href = "login.html";
+                })
+                .catch((error) => {
+                    alert("Logout failed: " + error.message);
+                });
+        }
+
+        return false;
+    };
+</script>
+
+<script type="module">
+import { auth, db } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+onAuthStateChanged(auth, (user) => {
+    console.log("Company UID:", user?.uid);
+    console.log("Company Email:", user?.email);
+});
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+import {
+  collection,
+  getDocs,
+  query,
+  where
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+const requestsContainer = document.getElementById("firebaseCropRequests");
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    requestsContainer.textContent = "Please log in to view crop requests.";
+    return;
+  }
+
+  try {
+    const requestsQuery = query(
+      collection(db, "cropSales"),
+      where("status", "==", "Pending")
+    );
+
+    const snapshot = await getDocs(requestsQuery);
+
+    requestsContainer.replaceChildren();
+
+    if (snapshot.empty) {
+      requestsContainer.textContent = "No pending crop requests found.";
+      return;
+    }
+
+    snapshot.forEach((documentSnapshot) => {
+      const crop = documentSnapshot.data();
+
+      const card = document.createElement("div");
+      card.className = "request";
+
+      const title = document.createElement("div");
+      title.className = "crop-name";
+      title.textContent = "🌱 " + (crop.cropName || "Crop");
+
+      const details = document.createElement("p");
+      details.textContent =
+        "Quantity: " + (crop.quantityKg ?? "N/A") + " KG | " +
+        "Price: ₹" + (crop.pricePerKg ?? "N/A") + "/KG";
+
+      const location = document.createElement("p");
+      location.textContent = "Location: " + (crop.location || "Not provided");
+
+      const status = document.createElement("p");
+      status.textContent = "Status: " + (crop.status || "Pending");
+
+      card.append(title, details, location, status);
+      requestsContainer.appendChild(card);
+    });
+  } catch (error) {
+    console.error("Company crop requests error:", error);
+    requestsContainer.textContent = "Could not load requests: " + error.message;
+  }
+});
+
+async function updateCropStatus(cropId, status) {
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("Please login as a company first.");
+    return;
+  }
+
+  if (!["Accepted", "Rejected"].includes(status)) {
+    alert("Invalid status.");
+    return;
+  }
+
+  try {
+    await updateDoc(doc(db, "cropSales", cropId), {
+      status: status
+    });
+
+    alert(`Crop request ${status} successfully!`);
+
+    // Refresh your crop request list here if needed.
+  } catch (error) {
+    console.error("Status update error:", error);
+    alert("Status update failed: " + error.message);
+  }
+}
+</script>
+</body>
+</html>
